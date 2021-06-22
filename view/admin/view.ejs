@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>READ - VIEW</title>
+</head>
+<body>
+    <h2> Hasil </h2>
+
+    <ul>
+      <!-- Loop through quotes -->
+      <% for(var i = 0; i < hasil.length; i++) {%>
+        <li>
+          <!-- Output name from the iterated quote object -->
+          <span><%= hasil[i].username %></span> - 
+          <!-- Output quote from the iterated quote object -->
+          <span><%= hasil[i].password %></span> - 
+          <!-- Output quote from the iterated quote object -->
+          <span><%= hasil[i].name %></span>
+        </li>
+      <% } %>
+    </ul>
+</body>
+</html>
