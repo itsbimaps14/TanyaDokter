@@ -1,0 +1,35 @@
+{
+  "name": "tanyadokter",
+  "version": "1.0.0",
+  "description": "Aplikasi TanyaDokter merupakan simple aplikasi dengan database MongoDB yang dikerjakan untuk memenuhi tugas akhir Pemodelan Data",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsbimaps14/TanyaDokter.git"
+  },
+  "keywords": [
+    "TanyaDokter",
+    "crud",
+    "mongodb"
+  ],
+  "author": "Bima (191524038), Sabar (191524058), Nabil (191524052) | Politeknik Negeri Bandung '19 | D4 B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsbimaps14/TanyaDokter/issues"
+  },
+  "homepage": "https://github.com/itsbimaps14/TanyaDokter#readme"
+}
