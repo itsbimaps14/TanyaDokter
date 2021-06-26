@@ -10,9 +10,23 @@ const app = express();
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
+app.use(express.static(__dirname + '/assets'));
+app.engine('html', require('ejs').renderFile);
 
 app.get('/admin/write', function(req, res) {
     res.sendFile(__dirname + dir + '/input.html')
+})
+
+app.get('/admin/read/table', function(req, res) {
+    db.getDB().collection(collection_admin).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/testing', function(req, res) {
+    res.render(__dirname + dir + '/view_tabel.ejs')
 })
 
 app.get('/admin/read', function(req, res) {
