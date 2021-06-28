@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Bootstrap Core CSS -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <title>READ - VIEW</title>
+</head>
+<body>
+    <h2> Hasil </h2> <br>
+        <div class="table cols-md-12">
+            <table id="tabel" class="display" style="width: 100%;">
+              <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Nama</th>
+                    <th>Phone</th>
+                    <th>Email</th> 
+                    <th>Province</th>
+                    <th>City</th>
+                    <th>Districts</th>
+                    <th>Detail</th>
+                    <th>Postal Code</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+</body>
+<script>
+  $(document).ready(function () {
+     $('#tabel').DataTable({
+          "processing": true,
+          "serverSide": false,
+          "ajax": {
+              "data": "json",
+              "type": "GET",
+              "url": "/pasien/read/table",
+              dataSrc:""
+          },
+              "columns":
+                  [
+                      { "data": "_id" },
+                      { "data": "username" },
+                      { "data": "password" },
+                      { "data": "name" },
+                      { "data": "telepon" },
+                      { "data": "email" },
+                      { "data": "provinci" },
+                      { "data": "kota" },
+                      { "data": "kecamatan" },
+                      { "data": "detail" },
+                      { "data": "kodepos" }                      
+                  ]
+          
+      });
+  });
+</script>
+</html>
