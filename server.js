@@ -4,9 +4,11 @@ const bodyParser= require('body-parser');
 const db = require("./model/connection");
 const collection_admin = "Admin";
 const collection_pasien = "Pasien";
+const collection_konsultasi = "Konsultasi";
 
 const dir = "/view/admin"
 const dir1 = "/view/pasien"
+const dir2 = "/view/konsultasi"
 
 const app = express();
 // Make sure you place body-parser before your CRUD handlers!
@@ -23,6 +25,11 @@ app.get('/pasien/write', function(req, res) {
     res.sendFile(__dirname + dir1 + '/input.html')
 })
 
+app.get('/konsultasi/write', function(req, res) {
+    res.sendFile(__dirname + dir2 + '/input.html')
+})
+
+
 app.get('/admin/read/table', function(req, res) {
     db.getDB().collection(collection_admin).find().toArray()
     .then(results => {
@@ -33,6 +40,14 @@ app.get('/admin/read/table', function(req, res) {
 
 app.get('/pasien/read/table', function(req, res) {
     db.getDB().collection(collection_pasien).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/konsultasi/read/table', function(req, res) {
+    db.getDB().collection(collection_konsultasi).find().toArray()
     .then(results => {
         res.json(results)
     })
@@ -59,6 +74,14 @@ app.get('/pasien/read', function(req, res) {
     .catch(error => console.error(error))
 })
 
+app.get('/konsultasi/read', function(req, res) {
+    db.getDB().collection(collection_konsultasi).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir2 + '/view.ejs', { hasil: results })
+    })
+    .catch(error => console.error(error))
+})
+
 app.post('/admin/form_create', (req, res) => {
     db.getDB().collection(collection_admin).insertOne(req.body)
     .then(results => {
@@ -71,6 +94,14 @@ app.post('/pasien/form_create', (req, res) => {
     db.getDB().collection(collection_pasien).insertOne(req.body)
     .then(results => {
         res.redirect('/pasien/write')
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/konsultasi/form_create', (req, res) => {
+    db.getDB().collection(collection_konsultasi).insertOne(req.body)
+    .then(results => {
+        res.redirect('/konsultasi/write')
     })
     .catch(error => console.error(error))
 })
