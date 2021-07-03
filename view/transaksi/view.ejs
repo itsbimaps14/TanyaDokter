@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Bootstrap Core CSS -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <title>READ - VIEW</title>
+</head>
+<body>
+    <h2> Hasil </h2> <br>
+        <div class="table cols-md-12">
+            <table id="tabel" class="display" style="width: 100%;">
+              <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pasien</th>
+                    <th>Jenis</th>
+                    <th>Nominal</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+</body>
+<script>
+  $(document).ready(function () {
+     $('#tabel').DataTable({
+          "processing": true,
+          "serverSide": false,
+          "ajax": {
+              "data": "json",
+              "type": "GET",
+              "url": "/transaksi/read/table",
+              dataSrc:""
+          },
+              "columns":
+                  [
+                      { "data": "_id" },
+                      { "data": "id_pengguna" },
+                      { "data": "jenis" },
+                      { "data": "nominal" }
+                  ]
+          
+      });
+  });
+</script>
+</html>
