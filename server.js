@@ -6,11 +6,13 @@ const collection_admin = "Admin";
 const collection_pasien = "Pasien";
 const collection_konsultasi = "Konsultasi";
 const collection_transaksi = "Transaksi";
+const collection_dokter = "Dokter";
 
 const dir = "/view/admin"
 const dir1 = "/view/pasien"
 const dir2 = "/view/konsultasi"
 const dir3 = "/view/transaksi"
+const dir4 = "/view/dokter"
 
 const app = express();
 // Make sure you place body-parser before your CRUD handlers!
@@ -133,6 +135,14 @@ app.get('/transaksi/read/table', function(req, res) {
     .catch(error => console.error(error))
 })
 
+app.get('/dokter/read/table', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
 app.get('/testing', function(req, res) {
     res.render(__dirname + dir + '/view_tabel.ejs')
 })
@@ -163,6 +173,14 @@ app.get('/transaksi/read', function(req, res) {
     .catch(error => console.error(error))
 })
 
+app.get('/dokter/read', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir4 + '/view.ejs', { hasil: results })
+    })
+    .catch(error => console.error(error))
+})
+
 app.post('/pasien/form_create', (req, res) => {
     db.getDB().collection(collection_pasien).insertOne(req.body)
     .then(results => {
@@ -187,7 +205,13 @@ app.post('/transaksi/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
-
+app.post('/dokter/form_create', (req, res) => {
+    db.getDB().collection(collection_dokter).insertOne(req.body)
+    .then(results => {
+        res.redirect('/dokter/write')
+    })
+    .catch(error => console.error(error))
+})
 
 
 db.connect((err)=>{
