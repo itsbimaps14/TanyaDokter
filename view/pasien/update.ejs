@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PASIEN | Update</title>
+</head>
+<body>
+  <h1> Update Pasien User : <%= hasil.name %></h1>
+  <form action="/pasien/update" method="POST">
+    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
+    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
+    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
+    <input type="text" name="telepon" value="<%= hasil.telepon %>"><br><br>
+    <input type="text" name="email" value="<%= hasil.email %>"><br><br>
+    <input type="text" name="provinci" value="<%= hasil.provinci %>"><br><br>
+    <input type="text" name="kota" value="<%= hasil.kota %>"><br><br>
+    <input type="text" name="kecamatan" value="<%= hasil.kecamatan %>"><br><br>
+    <input type="text" name="detail" value="<%= hasil.detail %>"><br><br>
+    <input type="text" name="kodepos" value="<%= hasil.kodepos %>"><br><br>
+    <button type="submit">Ubah Data Akun</button>
+  </form>
+</body>
+</html>

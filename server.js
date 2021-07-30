@@ -50,14 +50,6 @@ app.post('/admin/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.delete('/admin/delete', (req, res) => {
-    db.getDB().collection(collection_admin).deleteOne(
-    { username: req.body.name })
-    .then(result => {
-      res.json(`Deleted`)
-    })
-    .catch(error => console.error(error))
-})
 
 app.get('/admin/update/:username', (req, res) => {
     var username = req.params.username
@@ -128,6 +120,50 @@ app.post('/pasien/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/pasien/update/:username', (req, res) => {
+    var username = req.params.username
+    //console.log(username)
+    db.getDB().collection(collection_pasien).findOne({username : username})
+    .then(results => {
+        console.log(results)
+        res.render(__dirname + dir1 + '/update.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/pasien/update', (req, res) => {
+    db.getDB().collection(collection_pasien).update(
+        { username : req.body.username },
+        {
+            username : req.body.username,
+            password : req.body.password,
+            name : req.body.name,
+            telepon : req.body.telepon,
+            email : req.body.email,
+            provinci : req.body.provinci,
+            kota : req.body.kota,
+            kecamatan : req.body.kecamatan,
+            detail : req.body.detail,
+            kodepos : req.body.kodepos
+        }
+    )
+    .then(results => {
+        res.redirect('/pasien/read')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/pasien/delete/:username', (req, res) => {
+    var username = req.params.username
+    //console.log(username)
+    db.getDB().collection(collection_pasien).remove({username : username})
+    .then(results => {
+        console.log(results)
+        res.redirect('/pasien/read')
+    })
+    .catch(error => console.error(error))
+})
+
 // END OF PASIEN MODULE
 
 // KONSULTASI MODULE
@@ -156,6 +192,50 @@ app.post('/konsultasi/form_create', (req, res) => {
     db.getDB().collection(collection_konsultasi).insertOne(req.body)
     .then(results => {
         res.redirect('/konsultasi/write')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/konsultasi/update/:id_konsultasi', (req, res) => {
+    var id_konsultasi = req.params.id_konsultasi
+    //console.log(username)
+    db.getDB().collection(collection_konsultasi).findOne({id_konsultasi : id_konsultasi})
+    .then(results => {
+        console.log(results)
+        res.render(__dirname + dir2 + '/update.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/konsultasi/update', (req, res) => {
+    db.getDB().collection(collection_konsultasi).update(
+        { id_konsultasi : req.body.id_konsultasi },
+        {
+            id_konsultasi : req.body.id_konsultasi,
+            pasien : req.body.pasien,
+            dokter : req.body.dokter,
+            tanggal : req.body.tanggal,
+            jam_mulai : req.body.jam_mulai,
+            jam_selesai : req.body.jam_selesai,
+            urutan : req.body.urutan,
+            pengirim : req.body.pengirim,
+            detail : req.body.detail,
+            status : req.body.status
+        }
+    )
+    .then(results => {
+        res.redirect('/konsultasi/read')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/konsultasi/delete/:id_konsultasi', (req, res) => {
+    var id_konsultasi = req.params.id_konsultasi
+    //console.log(username)
+    db.getDB().collection(collection_konsultasi).remove({id_konsultasi : id_konsultasi})
+    .then(results => {
+        console.log(results)
+        res.redirect('/konsultasi/read')
     })
     .catch(error => console.error(error))
 })

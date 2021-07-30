@@ -47,7 +47,7 @@
           },
               "columns":
                   [
-                      { "data": "_id" },
+                      { "data": "id_konsultasi" },
                       { "data": "pasien" },
                       { "data": "dokter" },
                       { "data": "tanggal" },
@@ -56,7 +56,15 @@
                       { "data": "urutan" },
                       { "data": "pengirim" },
                       { "data": "detail" },
-                      { "data": "status" }
+                      { "data": "status" },
+                      {
+                        "data": null,
+                        "bSortable": false,
+                        "mRender": function (data, type, row) { 
+                            return  '<a href=/konsultasi/update/' + row.id_konsultasi + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                    '<a href=/konsultasi/delete/' + row.id_konsultasi + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                        }
+                      }
                   ]
           
       });
