@@ -40,12 +40,19 @@
           },
               "columns":
                   [
-                      { "data": "_id" },
+                      { "data": "id_transaksi" },
                       { "data": "id_pengguna" },
                       { "data": "jenis" },
-                      { "data": "nominal" }
+                      { "data": "nominal" },
+                      {
+                        "data": null,
+                        "bSortable": false,
+                        "mRender": function (data, type, row) { 
+                            return  '<a href=/transaksi/update/' + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                    '<a href=/transaksi/delete/' + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                        }
+                      }
                   ]
-          
       });
   });
 </script>

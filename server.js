@@ -272,6 +272,44 @@ app.post('/transaksi/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/transaksi/update/:id_transaksi', (req, res) => {
+    var id_transaksi = req.params.id_transaksi
+    //console.log(username)
+    db.getDB().collection(collection_transaksi).findOne({id_transaksi : id_transaksi})
+    .then(results => {
+        console.log(results)
+        res.render(__dirname + dir3 + '/update.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/transaksi/update', (req, res) => {
+    db.getDB().collection(collection_transaksi).update(
+        { id_transaksi : req.body.id_transaksi },
+        {
+            id_transaksi : req.body.id_transaksi,
+            id_pengguna : req.body.id_pengguna,
+            jenis : req.body.jenis,
+            nominal : req.body.nominal
+        }
+    )
+    .then(results => {
+        res.redirect('/transaksi/read')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/transaksi/delete/:id_transaksi', (req, res) => {
+    var id_transaksi = req.params.id_transaksi
+    //console.log(username)
+    db.getDB().collection(collection_transaksi).remove({id_transaksi : id_transaksi})
+    .then(results => {
+        console.log(results)
+        res.redirect('/transaksi/read')
+    })
+    .catch(error => console.error(error))
+})
+
 // END OF TRANSAKSI MODULE
 
 // DOKTER MODULE
