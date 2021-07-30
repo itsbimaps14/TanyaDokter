@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ADMIN | Update</title>
+</head>
+<body>
+  <h1> Update Administrator User : <%= hasil.name %></h1>
+  <form action="/admin/update" method="POST">
+    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
+    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
+    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
+    <button type="submit">Ubah Data Akun</button>
+  </form>
+</body>
+</html>

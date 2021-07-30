@@ -44,7 +44,15 @@
                       { "data": "_id" },
                       { "data": "username" },
                       { "data": "password" },
-                      { "data": "name" }
+                      { "data": "name" },
+                      {
+                        "data": null,
+                        "bSortable": false,
+                        "mRender": function (data, type, row) { 
+                            return  '<a href=/admin/update/' + row.username + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                    '<a href=/admin/delete/' + row.username + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                        }
+                      }
                   ]
           
       });
