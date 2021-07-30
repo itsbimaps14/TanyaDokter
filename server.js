@@ -6,11 +6,13 @@ const collection_admin = "Admin";
 const collection_pasien = "Pasien";
 const collection_konsultasi = "Konsultasi";
 const collection_transaksi = "Transaksi";
+const collection_dokter = "Dokter";
 
 const dir = "/view/admin"
 const dir1 = "/view/pasien"
 const dir2 = "/view/konsultasi"
 const dir3 = "/view/transaksi"
+const dir4 = "/view/dokter"
 
 const app = express();
 // Make sure you place body-parser before your CRUD handlers!
@@ -33,6 +35,10 @@ app.get('/konsultasi/write', function(req, res) {
 
 app.get('/transaksi/write', function(req, res) {
     res.sendFile(__dirname + dir3 + '/input.html')
+})
+
+app.get('/dokter/write', function(req, res) {
+    res.sendFile(__dirname + dir4 + '/input.html')
 })
 
 app.get('/admin/read/table', function(req, res) {
@@ -61,6 +67,14 @@ app.get('/konsultasi/read/table', function(req, res) {
 
 app.get('/transaksi/read/table', function(req, res) {
     db.getDB().collection(collection_transaksi).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/dokter/read/table', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
     .then(results => {
         res.json(results)
     })
@@ -103,6 +117,14 @@ app.get('/transaksi/read', function(req, res) {
     .catch(error => console.error(error))
 })
 
+app.get('/dokter/read', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir4 + '/view.ejs', { hasil: results })
+    })
+    .catch(error => console.error(error))
+})
+
 app.post('/admin/form_create', (req, res) => {
     db.getDB().collection(collection_admin).insertOne(req.body)
     .then(results => {
@@ -131,6 +153,14 @@ app.post('/transaksi/form_create', (req, res) => {
     db.getDB().collection(collection_transaksi).insertOne(req.body)
     .then(results => {
         res.redirect('/transaksi/write')
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/dokter/form_create', (req, res) => {
+    db.getDB().collection(collection_dokter).insertOne(req.body)
+    .then(results => {
+        res.redirect('/dokter/write')
     })
     .catch(error => console.error(error))
 })
