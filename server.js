@@ -98,17 +98,10 @@ app.get('/admin/delete/:username', (req, res) => {
 
 // END OF ADMIN MODULE
 
+// PASIEN MODULE
 
 app.get('/pasien/write', function(req, res) {
     res.sendFile(__dirname + dir1 + '/input.html')
-})
-
-app.get('/konsultasi/write', function(req, res) {
-    res.sendFile(__dirname + dir2 + '/input.html')
-})
-
-app.get('/transaksi/write', function(req, res) {
-    res.sendFile(__dirname + dir3 + '/input.html')
 })
 
 app.get('/pasien/read/table', function(req, res) {
@@ -119,64 +112,10 @@ app.get('/pasien/read/table', function(req, res) {
     .catch(error => console.error(error))
 })
 
-app.get('/konsultasi/read/table', function(req, res) {
-    db.getDB().collection(collection_konsultasi).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/transaksi/read/table', function(req, res) {
-    db.getDB().collection(collection_transaksi).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/read/table', function(req, res) {
-    db.getDB().collection(collection_dokter).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/testing', function(req, res) {
-    res.render(__dirname + dir + '/view_tabel.ejs')
-})
-
-
-
 app.get('/pasien/read', function(req, res) {
     db.getDB().collection(collection_pasien).find().toArray()
     .then(results => {
         res.render(__dirname + dir1 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/konsultasi/read', function(req, res) {
-    db.getDB().collection(collection_konsultasi).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir2 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/transaksi/read', function(req, res) {
-    db.getDB().collection(collection_transaksi).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir3 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/read', function(req, res) {
-    db.getDB().collection(collection_dokter).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir4 + '/view.ejs', { hasil: results })
     })
     .catch(error => console.error(error))
 })
@@ -189,10 +128,58 @@ app.post('/pasien/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// END OF PASIEN MODULE
+
+// KONSULTASI MODULE
+
+app.get('/konsultasi/write', function(req, res) {
+    res.sendFile(__dirname + dir2 + '/input.html')
+})
+
+app.get('/konsultasi/read/table', function(req, res) {
+    db.getDB().collection(collection_konsultasi).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/konsultasi/read', function(req, res) {
+    db.getDB().collection(collection_konsultasi).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir2 + '/view.ejs', { hasil: results })
+    })
+    .catch(error => console.error(error))
+})
+
 app.post('/konsultasi/form_create', (req, res) => {
     db.getDB().collection(collection_konsultasi).insertOne(req.body)
     .then(results => {
         res.redirect('/konsultasi/write')
+    })
+    .catch(error => console.error(error))
+})
+
+// END OF KONSULTASI MODULE
+
+// KONSULTASI TRANSAKSI MODULE
+
+app.get('/transaksi/write', function(req, res) {
+    res.sendFile(__dirname + dir3 + '/input.html')
+})
+
+app.get('/transaksi/read/table', function(req, res) {
+    db.getDB().collection(collection_transaksi).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/transaksi/read', function(req, res) {
+    db.getDB().collection(collection_transaksi).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir3 + '/view.ejs', { hasil: results })
     })
     .catch(error => console.error(error))
 })
@@ -205,6 +192,26 @@ app.post('/transaksi/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// END OF TRANSAKSI MODULE
+
+// DOKTER MODULE
+
+app.get('/dokter/read/table', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/dokter/read', function(req, res) {
+    db.getDB().collection(collection_dokter).find().toArray()
+    .then(results => {
+        res.render(__dirname + dir4 + '/view.ejs', { hasil: results })
+    })
+    .catch(error => console.error(error))
+})
+
 app.post('/dokter/form_create', (req, res) => {
     db.getDB().collection(collection_dokter).insertOne(req.body)
     .then(results => {
@@ -213,6 +220,12 @@ app.post('/dokter/form_create', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// END OF DOKTER MODULE
+
+// ESENSIAL MODULE
+app.get('/testing', function(req, res) {
+    res.render(__dirname + dir + '/view_tabel.ejs')
+})
 
 db.connect((err)=>{
     // If err unable to connect to database
