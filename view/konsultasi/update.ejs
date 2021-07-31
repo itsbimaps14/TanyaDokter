@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KONSULTASI | Update</title>
+</head>
+<body>
+  <h1> Update Konsultasi User : <%= hasil.name %></h1>
+  <form action="/konsultasi/update" method="POST">
+    <input type="text" name="id_konsultasi" value="<%= hasil.id_konsultasi %>"><br><br>
+    <input type="text" name="pasien" value="<%= hasil.pasien %>"><br><br>
+    <input type="text" name="dokter" value="<%= hasil.dokter %>"><br><br>
+    <input type="text" name="tanggal" value="<%= hasil.tanggal %>"><br><br>
+    <input type="text" name="jam_mulai" value="<%= hasil.jam_mulai %>"><br><br>
+    <input type="text" name="jam_selesai" value="<%= hasil.jam_selesai %>"><br><br>
+    <input type="text" name="urutan" value="<%= hasil.urutan %>"><br><br>
+    <input type="text" name="pengirim" value="<%= hasil.pengirim %>"><br><br>
+    <input type="text" name="detail" value="<%= hasil.detail %>"><br><br>
+    <input type="text" name="status" value="<%= hasil.status %>"><br><br>
+    <button type="submit">Ubah Data Konsultasi</button>
+  </form>
+</body>
+</html>

@@ -78,7 +78,15 @@
                       { "data": "string" },
                       { "data": "saldo" },
                       { "data": "status" },
-                      { "data": "harga" }                       
+                      { "data": "harga" },
+                      {
+                          "data": null,
+                          "bSortable": false,
+                          "mRender": function (data, type, row) {
+                              return '<a href=/dokter/update/' + row.username + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                     '<a href=/dokter/delete/' + row.username + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                          }
+                      }                       
                   ]
           
       });

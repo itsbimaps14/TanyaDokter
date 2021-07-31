@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TRANSAKSI | Update</title>
+</head>
+<body>
+  <h1> Update Transaksi User : <%= hasil.name %></h1>
+  <form action="/transaksi/update" method="POST">
+    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
+    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
+    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
+    <button type="submit">Ubah Data Transaksi</button>
+  </form>
+</body>
+</html>

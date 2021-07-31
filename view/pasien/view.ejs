@@ -58,7 +58,15 @@
                       { "data": "kota" },
                       { "data": "kecamatan" },
                       { "data": "detail" },
-                      { "data": "kodepos" }                      
+                      { "data": "kodepos" },
+                      {
+                        "data": null,
+                        "bSortable": false,
+                        "mRender": function (data, type, row) { 
+                            return  '<a href=/pasien/update/' + row.username + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                    '<a href=/pasien/delete/' + row.username + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                        }
+                      }
                   ]
           
       });
