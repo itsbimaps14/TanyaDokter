@@ -1,25 +1,31 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 
-const db = require("./model/connection");
+const db = require("./model/connection.js")
+
 const collection_admin = "Admin";
 const collection_pasien = "Pasien";
 const collection_konsultasi = "Konsultasi";
-const collection_transaksi = "Transaksi";
 const collection_dokter = "Dokter";
 
 const dir = "/view/admin"
 const dir1 = "/view/pasien"
 const dir2 = "/view/konsultasi"
-const dir3 = "/view/transaksi"
 const dir4 = "/view/dokter"
 
 const app = express();
+
+// Routers
+const transaksiRoutes    = require('./controller/transaksi');
+
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/assets'));
 app.engine('html', require('ejs').renderFile);
+
+// Panggil Controller
+app.use('/transaksi', transaksiRoutes);
 
 // ADMIN MODULE
 app.get('/admin/write', function(req, res) {
@@ -45,7 +51,7 @@ app.get('/admin/read', function(req, res) {
 app.post('/admin/form_create', (req, res) => {
     db.getDB().collection(collection_admin).insertOne(req.body)
     .then(results => {
-        res.redirect('/admin/write')
+        res.redirect('/admin/read')
     })
     .catch(error => console.error(error))
 })
@@ -242,76 +248,6 @@ app.get('/konsultasi/delete/:id_konsultasi', (req, res) => {
 
 // END OF KONSULTASI MODULE
 
-// KONSULTASI TRANSAKSI MODULE
-
-app.get('/transaksi/write', function(req, res) {
-    res.sendFile(__dirname + dir3 + '/input.html')
-})
-
-app.get('/transaksi/read/table', function(req, res) {
-    db.getDB().collection(collection_transaksi).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/transaksi/read', function(req, res) {
-    db.getDB().collection(collection_transaksi).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir3 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/transaksi/form_create', (req, res) => {
-    db.getDB().collection(collection_transaksi).insertOne(req.body)
-    .then(results => {
-        res.redirect('/transaksi/write')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/transaksi/update/:id_transaksi', (req, res) => {
-    var id_transaksi = req.params.id_transaksi
-    //console.log(username)
-    db.getDB().collection(collection_transaksi).findOne({id_transaksi : id_transaksi})
-    .then(results => {
-        console.log(results)
-        res.render(__dirname + dir3 + '/update.ejs', { hasil : results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/transaksi/update', (req, res) => {
-    db.getDB().collection(collection_transaksi).update(
-        { id_transaksi : req.body.id_transaksi },
-        {
-            id_transaksi : req.body.id_transaksi,
-            id_pengguna : req.body.id_pengguna,
-            jenis : req.body.jenis,
-            nominal : req.body.nominal
-        }
-    )
-    .then(results => {
-        res.redirect('/transaksi/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/transaksi/delete/:id_transaksi', (req, res) => {
-    var id_transaksi = req.params.id_transaksi
-    //console.log(username)
-    db.getDB().collection(collection_transaksi).remove({id_transaksi : id_transaksi})
-    .then(results => {
-        console.log(results)
-        res.redirect('/transaksi/read')
-    })
-    .catch(error => console.error(error))
-})
-
-// END OF TRANSAKSI MODULE
-
 // DOKTER MODULE
 
 app.get('/dokter/write', function(req, res) {
@@ -348,7 +284,7 @@ app.get('/dokter/update/:username', (req, res) => {
     db.getDB().collection(collection_dokter).findOne({username : username})
     .then(results => {
         console.log(results)
-        res.render(__dirname + dir1 + '/update.ejs', { hasil : results })
+        res.render(__dirname + dir4 + '/update.ejs', { hasil : results })
     })
     .catch(error => console.error(error))
 })

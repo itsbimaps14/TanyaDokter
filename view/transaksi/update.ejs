@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>TRANSAKSI | Update</title>
-</head>
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Transaksi | Update</title>
+  </head>
 <body>
-  <h1> Update Transaksi User : <%= hasil.name %></h1>
-  <form action="/transaksi/update" method="POST">
-    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
-    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
-    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
-    <button type="submit">Ubah Data Transaksi</button>
-  </form>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Update Transaksi</h1><hr>
+    <form action="/transaksi/update" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>ID Transaksi</label>
+        <input type="text" class="form-control" name="id_transaksi" value="<%= hasil.id_transaksi %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Nama Pengguna</label>
+        <input type="text" class="form-control" name="id_pengguna" value="<%= hasil.id_pengguna %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Jenis Transaksi</label>
+        <select class="form-control" id="jenis" name="jenis" required>
+          <option value=""></option>
+          <option value="Pembayaran">Pembayaran</option>
+          <option value="Deposit">Deposit</option>
+          <option value="Penerimaan">Penerimaan</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Nominal</label>
+        <input type="number" class="form-control" name="nominal" value="<%= hasil.nominal %>" required>
+      </div>
+      <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>
+      <hr>
+    </form>
+  </div>
 </body>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 </html>
+
+<script>
+  if("<%= hasil.jenis %>" == "Pembayaran"){
+    document.getElementById("jenis").selectedIndex = 1;
+  }
+  else if("<%= hasil.jenis %>" == "Deposit"){
+    document.getElementById("jenis").selectedIndex = 2;
+  }
+  else{
+    document.getElementById("jenis").selectedIndex = 0;
+  }
+</script>

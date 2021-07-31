@@ -18,7 +18,7 @@ const connect = (cb) =>{
         cb();
     else{
         // attempt to get database connection
-        MongoClient.connect(url,mongoOptions,(err,client)=>{
+        MongoClient.connect(url ,{ useNewUrlParser: true, useUnifiedTopology: true} ,mongoOptions,(err,client)=>{
             // unable to get database connection pass error to CB
             if(err)
                 cb(err);

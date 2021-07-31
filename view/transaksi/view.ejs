@@ -5,24 +5,29 @@
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <meta charset="UTF-8">
-  <title>READ - VIEW</title>
+  <title>Transaksi | View</title>
 </head>
 <body>
-    <h2> Hasil </h2> <br>
-        <div class="table cols-md-12">
+    <br>
+    <div class="container border">
+        <hr><h1 class="text-center">Data Transaksi</h1><hr>
+        <a class="btn btn-success col-md-2 offset-md-5" href="/transaksi/write" role="button">Tambah Data</a>
+        <hr>
+        <div class="table">
             <table id="tabel" class="display" style="width: 100%;">
               <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Pasien</th>
+                    <th>Pengguna</th>
                     <th>Jenis</th>
                     <th>Nominal</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
-
+    </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -48,11 +53,17 @@
                         "data": null,
                         "bSortable": false,
                         "mRender": function (data, type, row) { 
-                            return  '<a href=/transaksi/update/' + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
-                                    '<a href=/transaksi/delete/' + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
+                            return  '<a href=/transaksi/update/' + row.id_transaksi + '><button type="button" class="btn btn-primary">' + 'Edit' + '</button></a>   ' +
+                                    '<a href=/transaksi/delete/' + row.id_transaksi + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
                         }
                       }
-                  ]
+                  ],
+                    'columnDefs': [
+                        {
+                            "targets": 4, // your case first column
+                            "className": "text-center"
+                        }
+                    ]
       });
   });
 </script>
