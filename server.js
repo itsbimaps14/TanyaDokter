@@ -314,6 +314,10 @@ app.get('/transaksi/delete/:id_transaksi', (req, res) => {
 
 // DOKTER MODULE
 
+app.get('/dokter/write', function(req, res) {
+    res.sendFile(__dirname + dir4 + '/input.html')
+})
+
 app.get('/dokter/read/table', function(req, res) {
     db.getDB().collection(collection_dokter).find().toArray()
     .then(results => {
@@ -334,6 +338,60 @@ app.post('/dokter/form_create', (req, res) => {
     db.getDB().collection(collection_dokter).insertOne(req.body)
     .then(results => {
         res.redirect('/dokter/write')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/dokter/update/:username', (req, res) => {
+    var username = req.params.username
+    //console.log(username)
+    db.getDB().collection(collection_dokter).findOne({username : username})
+    .then(results => {
+        console.log(results)
+        res.render(__dirname + dir1 + '/update.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+})
+
+app.post('/dokter/update', (req, res) => {
+    db.getDB().collection(collection_dokter).update(
+        { username : req.body.username },
+        {
+            username : req.body.username,
+            password : req.body.password,
+            name : req.body.name,
+            telepon : req.body.telepon,
+            email : req.body.email,
+            provinsipraktik : req.body.provinsipraktik,
+            kotapraktik : req.body.kotapraktik,
+            kecamatanpraktik : req.body.kecamatanpraktik,
+            detailpraktik : req.body.detailpraktik,
+            kodepospraktik : req.body.kodepospraktik,
+            provinsi : req.body.provinsi,
+            kota : req.body.kota,
+            kecamatan : req.body.kecamatan,
+            detail : req.body.detail,
+            kodepos : req.body.kodepos,
+            spesialis : req.body.spesialis,
+            string : req.body.string,
+            saldo : req.body.saldo,
+            status : req.body.status,
+            harga : req.body.harga
+        }
+    )
+    .then(results => {
+        res.redirect('/dokter/read')
+    })
+    .catch(error => console.error(error))
+})
+
+app.get('/dokter/delete/:username', (req, res) => {
+    var username = req.params.username
+    //console.log(username)
+    db.getDB().collection(collection_dokter).remove({username : username})
+    .then(results => {
+        console.log(results)
+        res.redirect('/dokter/read')
     })
     .catch(error => console.error(error))
 })

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PASIEN | Update</title>
+</head>
+<body>
+  <h1> Update Pasien User : <%= hasil.name %></h1>
+  <form action="/dokter/update" method="POST">
+    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
+    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
+    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
+    <input type="text" name="telepon" value="<%= hasil.telepon %>"><br><br>
+    <input type="text" name="email" value="<%= hasil.email %>"><br><br>
+    <h4> Adress Praktik </h4>
+    <input type="text" name="provinsipraktik" value="<%= hasil.provinsipraktik %>"><br><br>
+    <input type="text" name="kotapraktik" value="<%= hasil.kotapraktik %>"><br><br>
+    <input type="text" name="kecamatanpraktik" value="<%= hasil.kecamatanpraktik %>"><br><br>
+    <input type="text" name="detailpraktik" value="<%= hasil.detailpraktik %>"><br><br>
+    <input type="text" name="kodepospraktik" value="<%= hasil.kodepospraktik %>"><br><br>
+    <h4> Adress Tinggal </h4>
+    <input type="text" name="provinsi" value="<%= hasil.provinsi %>"><br><br>
+    <input type="text" name="kota" value="<%= hasil.kota %>"><br><br>
+    <input type="text" name="kecamatan" value="<%= hasil.kecamatan %>"><br><br>
+    <input type="text" name="detail" value="<%= hasil.detail %>"><br><br>
+    <input type="text" name="kodepos" value="<%= hasil.kodepos %>"><br><br>
+    <h4> Detail </h4>
+    <input type="text" name="spesialis" value="<%= hasil.spesialis %>"><br><br>
+    <input type="text" name="string" value="<%= hasil.string %>"><br><br>
+    <input type="text" name="saldo" value="<%= hasil.saldo %>"><br><br>
+    <input type="text" name="status" value="<%= hasil.status %>"><br><br>
+    <input type="text" name="harga" value="<%= hasil.harga %>"><br><br>
+    <button type="submit">Ubah Data Akun</button>
+  </form>
+</body>
+</html>
