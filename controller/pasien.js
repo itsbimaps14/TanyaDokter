@@ -15,5 +15,14 @@ router.get('/delete/:username', pasienAPI.deleteData)
 router.get('/request', pasienAPI.requestKonsultasi)
 router.get('/request/proses', pasienAPI.readRequestKonsultasi)
 router.get('/request/proses/:dokter', pasienAPI.sendRequestKonsultasi)
+router.get('/konsul', pasienAPI.konsulKonsultasi)
+router.get('/konsul/proses', pasienAPI.readKonsulKonsultasi)
+router.get('/konsul/proses/:konsultasi/:pasien', pasienAPI.sendKonsulKonsultasi)
+router.get('/payment', pasienAPI.paymentKonsultasi)
+router.get('/payment/proses', pasienAPI.readPaymentKonsultasi)
+router.post('/payment/proses/bayar', pasienAPI.sendPaymentKonsultasi)
+router.get('/payment/proses/nilai/:konsultasi/:pasien', pasienAPI.nilaiPaymentKonsultasi)
+
+//router.get('/cek/nilai/:dokter', pasienAPI.cekNilaiDokter)
 
 module.exports = router

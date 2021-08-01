@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Pasien | Konsultasi</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Bayar dan Nilai Konsul</h1><hr>
+    <form action="/pasien/payment/proses/bayar" method="POST">
+      <input type="hidden" class="form-control" name="konsultasi" value="<%= hasil1 %>">
+      <input type="hidden" class="form-control" name="pasien" value="<%= hasil2 %>">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Penilaian (1-5)</label>
+        <input type="number" class="form-control" name="nilai" min="1" max="5">
+      </div>
+      <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Bayar</button>
+      <hr>
+    </form>
+  </div>
+</body>
+</html>

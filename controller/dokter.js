@@ -12,5 +12,8 @@ router.post('/update', dokterAPI.updateFormDokter)
 router.get('/delete/:username', dokterAPI.deleteDataDokter)
 router.get('/login', dokterAPI.loginDokter)
 router.post('/login/auth', dokterAPI.loginAuth)
+router.get('/accept', dokterAPI.acceptKonsultasi)
+router.get('/accept/proses', dokterAPI.readAcceptKonsultasi)
+router.get('/accept/proses/:konsultasi', dokterAPI.sendAcceptKonsultasi)
 
 module.exports = router

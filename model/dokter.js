@@ -144,4 +144,82 @@ exports.loginAuth = async (req, res) => {
         
     })
 }
+
+exports.acceptKonsultasi = async (req,res) => {
+    res.render(dir + '/accept.ejs')
+}
+
+exports.readAcceptKonsultasi = async (req,res) => {
+    const colKon = "Konsultasi";
+    const colPasien = "Pasien";
+
+    db.getDB().collection(colKon).aggregate([
+        {
+            $lookup:
+              {
+                from: colPasien,
+                //localField: "id_pasien",
+                //foreignField: "id_pasien",
+                let: { 
+                    status : "$status",
+                    id : "$id_pasien"
+                },
+                pipeline: [ {
+                    $match: {
+                        $expr: {
+                            $and: [
+                                { $eq: [ "$$id", "$id_pasien" ] },
+                                { $eq: [ "$$status", "Requested" ] }
+                            ]
+                        }
+                    }
+                },
+                { $project: { name: 1 } }
+                ],
+                as: "data_pasien"
+              }
+         }
+    ])
+    .toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error)) 
+}
+
+exports.sendAcceptKonsultasi = async (req,res) => {
+    const col = "Konsultasi";
+    var konsultasi = req.params.konsultasi
+    
+    // get jam now
+    var today = new Date(),
+        h = checkTime(today.getHours()),
+        m = checkTime(today.getMinutes()),
+        yy = checkTime(today.getFullYear()),
+        mm = checkTime(parseInt(today.getMonth() + 1)),
+        dd = checkTime(today.getDate());
+
+    var now_h = h + ":" + m;
+    var now_d = dd + "/" + mm + "/" + yy;
+
+    db.getDB().collection(col).updateOne(
+        { id_konsultasi : konsultasi },
+        {
+            $set : {
+                tanggal : now_d,   
+                jam_mulai : now_h,
+                status : "Accepted"
+            }
+        }
+    )
+    .then(results => {
+        res.redirect('/dokter/accept/');
+    })
+    .catch(error => console.error(error))
+
+}
+
+function checkTime(i) {
+    return (i < 10) ? "0" + i : i;
+}
 // END OF TRANSAKSI MODULE

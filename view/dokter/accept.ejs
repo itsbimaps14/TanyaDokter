@@ -10,16 +10,13 @@
 <body>
     <br>
     <div class="container border">
-        <hr><h1 class="text-center">Request Konsultasi</h1><hr>
+        <hr><h1 class="text-center">Accept Konsultasi</h1><hr>
         <div class="table">
             <table id="tabel" class="display" style="width: 100%;">
               <thead>
                 <tr>
-                    <th>Nama Dokter</th>
-                    <th>Spesialis</th>
-                    <th>Harga</th> 
-                    <th>STR</th> 
-                    <th>Nilai</th>
+                    <th>ID Konsultasi</th>
+                    <th>Pasien</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -39,37 +36,24 @@
           "ajax": {
               "data": "json",
               "type": "GET",
-              "url": "/pasien/request/proses",
+              "url": "/dokter/accept/proses",
               dataSrc:""
           },
               "columns":
                   [
-                      { "data": "name" },
-                      { "data": "spesialis" },
-                      { "data": "harga" },
-                      { "data": "str" },
+                      { "data": "id_konsultasi" },
+                      { "data": "data_pasien[1].name" },
                       {
                         "data": null,
                         "bSortable": false,
                         "mRender": function (data, type, row) { 
-                            return  '<a href=/pasien/cek/nilai/' + row.id_dokter + '><button type="button" class="btn btn-success">' + 'Check Nilai' + '</button></a>'
-                        }
-                      },
-                      {
-                        "data": null,
-                        "bSortable": false,
-                        "mRender": function (data, type, row) { 
-                            return  '<a href=/pasien/request/' + row.id_dokter + '><button type="button" class="btn btn-primary">' + 'Request Konsul' + '</button></a>'
+                            return  '<a href=/dokter/accept/proses/' + row.id_konsultasi + '><button type="button" class="btn btn-primary">' + 'Terima Konsul' + '</button></a>'
                         }
                       }
                   ],
                     'columnDefs': [
                         {
-                            "targets": 4, // your case first column
-                            "className": "text-center"
-                        },
-                        {
-                            "targets": 5, // your case first column
+                            "targets": 2, // your case first column
                             "className": "text-center"
                         }
                     ]

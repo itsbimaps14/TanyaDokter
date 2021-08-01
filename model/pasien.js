@@ -158,3 +158,181 @@ exports.sendRequestKonsultasi = async (req,res) => {
     .catch(error => console.error(error))
 
 }
+
+exports.konsulKonsultasi = async (req,res) => {
+    res.render(dir + '/konsul.ejs')
+}
+
+exports.readKonsulKonsultasi = async (req,res) => {
+    const colKon = "Konsultasi";
+    const colDok = "Dokter";
+
+    db.getDB().collection(colKon).aggregate([
+        {
+            $lookup:
+              {
+                from: colDok,
+                let: { 
+                    status : "$status",
+                    id : "$id_dokter"
+                },
+                pipeline: [ {
+                    $match: {
+                        $expr: {
+                            $and: [
+                                { $eq: [ "$$id", "$id_dokter" ] },
+                                { $eq: [ "$$status", "Accepted" ] }
+                            ]
+                        }
+                    }
+                },
+                { $project: { name: 1, spesialis: 1, harga: 1} }
+                ],
+                as: "data_dokter"
+              }
+         }
+    ])
+    .toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error)) 
+}
+
+exports.sendKonsulKonsultasi = async (req,res) => {
+    const col = "Konsultasi";
+    var konsultasi = req.params.konsultasi
+    var pasien = req.params.pasien
+    
+    // get jam now
+    var today = new Date(),
+        h = checkTime(today.getHours()),
+        m = checkTime(today.getMinutes()),
+        yy = checkTime(today.getFullYear()),
+        mm = checkTime(parseInt(today.getMonth() + 1)),
+        dd = checkTime(today.getDate());
+
+    var now_h = h + ":" + m;
+    var now_d = dd + "/" + mm + "/" + yy;
+
+    db.getDB().collection(col).updateOne(
+        { id_konsultasi : konsultasi },
+        {
+            $set : { 
+                jam_selesai : now_h,
+                status : "Payment"
+            }
+        }
+    )
+    .then(results => {
+        db.getDB().collection("Pasien").updateOne(
+            { id_pasien : pasien },
+            {
+                $set : { 
+                    status : "Belum Bayar"
+                }
+            }
+        )
+        .then(results => {
+            res.redirect('/pasien/konsul');
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+}
+
+exports.paymentKonsultasi = async (req,res) => {
+    res.render(dir + '/bayar.ejs')
+}
+
+exports.readPaymentKonsultasi = async (req,res) => {
+    const colKon = "Konsultasi";
+    const colDok = "Dokter";
+
+    db.getDB().collection(colKon).aggregate([
+        {
+            $lookup:
+              {
+                from: colDok,
+                let: { 
+                    status : "$status",
+                    id : "$id_dokter"
+                },
+                pipeline: [ {
+                    $match: {
+                        $expr: {
+                            $and: [
+                                { $eq: [ "$$id", "$id_dokter" ] },
+                                { $eq: [ "$$status", "Payment" ] }
+                            ]
+                        }
+                    }
+                },
+                { $project: { name: 1, spesialis: 1, harga: 1} }
+                ],
+                as: "data_dokter"
+              }
+         }
+    ])
+    .toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error)) 
+}
+
+exports.sendPaymentKonsultasi = async (req,res) => {
+    const col = "Konsultasi";
+    var konsultasi = req.body.konsultasi
+    var pasien = req.body.pasien
+
+    db.getDB().collection(col).updateOne(
+        { id_konsultasi : konsultasi },
+        {
+            $set : {
+                status : "Selesai",
+                nilai : parseInt(req.body.nilai)
+            }
+        }
+    )
+    .then(results => {
+        db.getDB().collection("Pasien").updateOne(
+            { id_pasien : pasien },
+            {
+                $set : { 
+                    status : "OK"
+                }
+            }
+        )
+        .then(results => {
+            res.redirect('/pasien/payment');
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+}
+
+exports.nilaiPaymentKonsultasi = async (req,res) => {
+    var konsultasi = req.params.konsultasi
+    var pasien = req.params.pasien
+
+    res.render(dir + '/nilai.ejs', { hasil1 : konsultasi, hasil2 : pasien })
+}
+/*
+exports.cekNilaiDokter = async (req,res) => {
+    var dokter = req.params.dokter
+
+    db.getDB().collection("Konsultasi").countDocuments({id_dokter : dokter})
+    .then(results => {
+        db.getDB().collection("Konsultasi").countDocuments({id_dokter : dokter})
+        .then(results => {
+            
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+}
+*/
+function checkTime(i) {
+    return (i < 10) ? "0" + i : i;
+}
