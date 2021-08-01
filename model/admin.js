@@ -105,54 +105,40 @@ exports.deposit = async (req, res) => {
 exports.authDeposit = async (req, res) => {
     const varPasien = "Pasien";
     const varTrx = "Transaksi";
-    var saldoAkhir = parseInt(getPasienSaldo(req.body.id_pasien)) + parseInt(req.body.nominal);
+    const varCol = "Pasien";
 
-    db.getDB().collection(varPasien).updateOne(
-        { username : req.body.id_pasien },
-        {
-            $set : {
-                    saldo : saldoAkhir
-                }
-        }
-    )
-    .then(results => {
-        db.getDB().collection(varTrx).insertOne(
-            {
-                id_transaksi : getPasienUrutanTrx(),
-                id_pengguna : req.body.id_pasien,
-                nominal : req.body.nominal,
-                jenis : "Deposit"
-            }
+    db.getDB().collection(varCol).findOne({username : req.body.id_pasien})
+    .then(results_saldo => {
+        console.log("ambil saldo awal")
+        /// depth 2
+        var total = parseInt(results_saldo.saldo) + parseInt(req.body.nominal)
+        db.getDB().collection(varPasien).updateOne(
+            { username : req.body.id_pasien },
+            {$set : {saldo : total}}
         )
         .then(results => {
-            res.redirect('/admin/topup')
+            console.log("hitung total")
+            const varPas = "Pasien";
+            db.getDB().collection(varTrx).countDocuments()
+            .then(results_cd => {
+                console.log("hitung dokumen")
+                db.getDB().collection(varTrx).insertOne(
+                    {
+                        id_transaksi : "TRX_" + results_cd,
+                        id_pengguna : req.body.id_pasien,
+                        nominal : req.body.nominal,
+                        jenis : "Deposit"
+                    }
+                )
+                .then(results_depth4 => {
+                    console.log("insert transaksi")
+                    res.redirect('/admin/topup')
+                })
+                .catch(error => console.error(error))
+            })
+            .catch(error => console.error(error))
         })
         .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 }
-
-// Modul Bantuan
-
-getPasienSaldo = function (username) {
-    const varCol = "Pasien";
-    db.getDB().collection(varCol).findOne(
-        {
-            username : username
-        }
-    )
-    .then(results => {
-        return results.saldo;
-    })
-    .catch(error => console.error(error))
-};
-
-var getPasienUrutanTrx = function () {
-    const varCol = "Pasien";
-    db.getDB().collection(varCol).countDocuments()
-    .then(results => {
-        console.log(results + " - getPasienUrutan")
-        return "TRX_" + results.toString();
-    })
-    .catch(error => console.error(error))
-};
