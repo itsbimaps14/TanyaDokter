@@ -26,15 +26,15 @@
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Date</label>
-        <input type="date" class="form-control" name="tanggal" value="<%= hasil.tanggal %>" readonly required>
+        <input type="date" class="form-control" name="tanggal" value="<%= hasil.tanggal %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Waktu Mulai</label>
-        <input type="time" class="form-control" name="jam_mulai" value="<%= hasil.jam_mulai %>" readonly required>
+        <input type="time" class="form-control" name="jam_mulai" value="<%= hasil.jam_mulai %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Waktu Selesai</label>
-        <input type="time" class="form-control" name="jam_selesai" value="<%= hasil.jam_selesai %>" readonly required>
+        <input type="time" class="form-control" name="jam_selesai" value="<%= hasil.jam_selesai %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Pengirim</label>
@@ -42,7 +42,7 @@
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Detail</label>
-        <input type="text" class="form-control" name="detail" value="<%= hasil.detail %>" required>
+        <input type="text" class="form-control" name="detail" value="<%= hasil.detail %>" readonly required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Status</label>
@@ -70,6 +70,6 @@
     document.getElementById("status").selectedIndex = 1;
   }
   else{
-    document.getElementById("status").selectedIndex = 0;
+    document.getElementById("status").selectedIndex = 2;
   }
 </script>
