@@ -5,15 +5,18 @@
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <meta charset="UTF-8">
-  <title>READ - VIEW</title>
+  <title>Pasien | View</title>
 </head>
 <body>
-    <h2> Hasil </h2> <br>
-        <div class="table cols-md-12">
+    <br>
+    <div class="container border">
+        <hr><h1 class="text-center">Data Pasien</h1><hr>
+        <a class="btn btn-success col-md-2 offset-md-5" href="/pasien/write" role="button">Tambah Data</a>
+        <hr>
+        <div class="table">
             <table id="tabel" class="display" style="width: 100%;">
               <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Username</th>
                     <th>Password</th>
                     <th>Nama</th>
@@ -30,7 +33,7 @@
                 <tbody></tbody>
             </table>
         </div>
-
+    </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -48,7 +51,6 @@
           },
               "columns":
                   [
-                      { "data": "_id" },
                       { "data": "username" },
                       { "data": "password" },
                       { "data": "name" },
@@ -67,8 +69,13 @@
                                     '<a href=/pasien/delete/' + row.username + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
                         }
                       }
-                  ]
-          
+                  ],
+                    'columnDefs': [
+                        {
+                            "targets": 10, // your case first column
+                            "className": "text-center"
+                        }
+                    ]
       });
   });
 </script>

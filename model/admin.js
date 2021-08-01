@@ -88,16 +88,3 @@ exports.loginCreate = async (req,res) => {
         }  
     })
 }
-
-// app.post('/admin/login_create', (req, res) => {
- 
-//     db.getDB().collection(collection_admin).findOne({username : req.body.username} ,function(err, user) { 
-//         if (user && user.password === req.body.password){
-//             res.redirect('/admin/write');
-//         }
-//         else{
-//             res.redirect('/admin/login');
-//         }
-        
-//     })
-// })

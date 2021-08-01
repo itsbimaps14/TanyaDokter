@@ -33,15 +33,3 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 </html>
-
-<script>
-  if("<%= hasil.jenis %>" == "Pembayaran"){
-    document.getElementById("jenis").selectedIndex = 1;
-  }
-  else if("<%= hasil.jenis %>" == "Deposit"){
-    document.getElementById("jenis").selectedIndex = 2;
-  }
-  else{
-    document.getElementById("jenis").selectedIndex = 0;
-  }
-</script>

@@ -18,6 +18,7 @@ const app = express();
 // Routers
 const transaksiRoutes    = require('./controller/transaksi');
 const adminRoutes    = require('./controller/admin');
+const pasienRoutes    = require('./controller/pasien');
 
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -31,100 +32,9 @@ app.use('/transaksi', transaksiRoutes);
 // Panggil Admin
 app.use('/admin', adminRoutes);
 
+// Panggil Pasien
+app.use('/pasien', pasienRoutes);
 
-// PASIEN MODULE
-
-app.get('/pasien/write', function(req, res) {
-    res.sendFile(__dirname + dir1 + '/input.html')
-})
-
-app.get('/pasien/read/table', function(req, res) {
-    db.getDB().collection(collection_pasien).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/pasien/read', function(req, res) {
-    db.getDB().collection(collection_pasien).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir1 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/pasien/form_create', (req, res) => {
-    db.getDB().collection(collection_pasien).insertOne(req.body)
-    .then(results => {
-        res.redirect('/pasien/write')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/pasien/update/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_pasien).findOne({username : username})
-    .then(results => {
-        console.log(results)
-        res.render(__dirname + dir1 + '/update.ejs', { hasil : results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/pasien/update', (req, res) => {
-    db.getDB().collection(collection_pasien).update(
-        { username : req.body.username },
-        {
-            username : req.body.username,
-            password : req.body.password,
-            name : req.body.name,
-            telepon : req.body.telepon,
-            email : req.body.email,
-            provinci : req.body.provinci,
-            kota : req.body.kota,
-            kecamatan : req.body.kecamatan,
-            detail : req.body.detail,
-            kodepos : req.body.kodepos
-        }
-    )
-    .then(results => {
-        res.redirect('/pasien/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/pasien/delete/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_pasien).remove({username : username})
-    .then(results => {
-        console.log(results)
-        res.redirect('/pasien/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/pasien/login', function(req, res) {
-    res.sendFile(__dirname + dir1 + '/login.html')
-})
-
-
-app.post('/pasien/login_create', (req, res) => {
- 
-    db.getDB().collection(collection_pasien).findOne({username : req.body.username} ,function(err, user) { 
-        if (user && user.password === req.body.password){
-            res.redirect('/pasien/write');
-        }
-        else{
-            res.redirect('/pasien/login');
-        }
-        
-    })
-});
-
-// END OF PASIEN MODULE
 
 // KONSULTASI MODULE
 

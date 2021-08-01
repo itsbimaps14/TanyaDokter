@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>PASIEN | Update</title>
-</head>
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Pasien | Update</title>
+  </head>
 <body>
-  <h1> Update Pasien User : <%= hasil.name %></h1>
-  <form action="/pasien/update" method="POST">
-    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
-    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
-    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
-    <input type="text" name="telepon" value="<%= hasil.telepon %>"><br><br>
-    <input type="text" name="email" value="<%= hasil.email %>"><br><br>
-    <input type="text" name="provinci" value="<%= hasil.provinci %>"><br><br>
-    <input type="text" name="kota" value="<%= hasil.kota %>"><br><br>
-    <input type="text" name="kecamatan" value="<%= hasil.kecamatan %>"><br><br>
-    <input type="text" name="detail" value="<%= hasil.detail %>"><br><br>
-    <input type="text" name="kodepos" value="<%= hasil.kodepos %>"><br><br>
-    <button type="submit">Ubah Data Akun</button>
-  </form>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Update Pasien</h1><hr>
+    <form action="/pasien/update" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Pasien Name</label>
+        <input type="text" class="form-control" name="name" value="<%= hasil.name %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" value="<%= hasil.password %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Telephone</label>
+        <input type="number" class="form-control" name="telepon" value="<%= hasil.telepon %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Email</label>
+        <input type="email" class="form-control" name="email" value="<%= hasil.email %>" required>
+      </div>
+      <hr><h3 class="text-center">Address</h3><hr>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Province</label>
+        <input type="text" class="form-control" name="provinci" value="<%= hasil.provinci %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>City</label>
+        <input type="text" class="form-control" name="kota" value="<%= hasil.kota %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>District</label>
+        <input type="text" class="form-control" name="kecamatan" value="<%= hasil.kecamatan %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Detail</label>
+        <input type="text" class="form-control" name="detail" value="<%= hasil.detail %>" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Postal Code</label>
+        <input type="number" class="form-control" name="kodepos" value="<%= hasil.kodepos %>" required>
+      </div>
+      <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>
+      <hr>
+    </form>
+  </div>
 </body>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 </html>
