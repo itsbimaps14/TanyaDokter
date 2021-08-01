@@ -49,7 +49,7 @@ exports.updateData = async (req,res) => {
 
 exports.updateForm = async (req,res) => {
     db.getDB().collection(collection_transaksi).updateOne(
-        { id_transaksi : req.body.transaksi },
+        { id_transaksi : req.body.id_transaksi },
         {
             $set : {
                     jenis : req.body.jenis,
