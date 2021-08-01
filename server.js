@@ -3,12 +3,12 @@ const bodyParser= require('body-parser');
 
 const db = require("./model/connection.js")
 
-const collection_admin = "Admin";
+
 const collection_pasien = "Pasien";
 const collection_konsultasi = "Konsultasi";
 const collection_dokter = "Dokter";
 
-const dir = "/view/admin"
+
 const dir1 = "/view/pasien"
 const dir2 = "/view/konsultasi"
 const dir4 = "/view/dokter"
@@ -17,6 +17,7 @@ const app = express();
 
 // Routers
 const transaksiRoutes    = require('./controller/transaksi');
+const adminRoutes    = require('./controller/admin');
 
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -27,90 +28,93 @@ app.engine('html', require('ejs').renderFile);
 // Panggil Controller
 app.use('/transaksi', transaksiRoutes);
 
-// ADMIN MODULE
-app.get('/admin/write', function(req, res) {
-    res.sendFile(__dirname + dir + '/input.html')
-})
+// Panggil Admin
+app.use('/admin', adminRoutes);
 
-app.get('/admin/read/table', function(req, res) {
-    db.getDB().collection(collection_admin).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
+// // ADMIN MODULE
+// app.get('/admin/write', function(req, res) {
+//     res.sendFile(__dirname + dir + '/input.html')
+// })
 
-app.get('/admin/read', function(req, res) {
-    db.getDB().collection(collection_admin).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
+// app.get('/admin/read/table', function(req, res) {
+//     db.getDB().collection(collection_admin).find().toArray()
+//     .then(results => {
+//         res.json(results)
+//     })
+//     .catch(error => console.error(error))
+// })
 
-app.post('/admin/form_create', (req, res) => {
-    db.getDB().collection(collection_admin).insertOne(req.body)
-    .then(results => {
-        res.redirect('/admin/read')
-    })
-    .catch(error => console.error(error))
-})
+// app.get('/admin/read', function(req, res) {
+//     db.getDB().collection(collection_admin).find().toArray()
+//     .then(results => {
+//         res.render(__dirname + dir + '/view.ejs', { hasil: results })
+//     })
+//     .catch(error => console.error(error))
+// })
 
-
-app.get('/admin/update/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_admin).findOne({username : username})
-    .then(results => {
-        console.log(results)
-        res.render(__dirname + dir + '/update.ejs', { hasil : results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/admin/update', (req, res) => {
-    db.getDB().collection(collection_admin).update(
-        { username : req.body.username },
-        {
-            username : req.body.username,
-            password : req.body.password,
-            name : req.body.name
-        }
-    )
-    .then(results => {
-        res.redirect('/admin/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/admin/delete/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_admin).remove({username : username})
-    .then(results => {
-        console.log(results)
-        res.redirect('/admin/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/admin/login', function(req, res) {
-    res.sendFile(__dirname + dir + '/login.html')
-})
+// app.post('/admin/form_create', (req, res) => {
+//     db.getDB().collection(collection_admin).insertOne(req.body)
+//     .then(results => {
+//         res.redirect('/admin/read')
+//     })
+//     .catch(error => console.error(error))
+// })
 
 
-app.post('/admin/login_create', (req, res) => {
+// app.get('/admin/update/:username', (req, res) => {
+//     var username = req.params.username
+//     //console.log(username)
+//     db.getDB().collection(collection_admin).findOne({username : username})
+//     .then(results => {
+//         console.log(results)
+//         res.render(__dirname + dir + '/update.ejs', { hasil : results })
+//     })
+//     .catch(error => console.error(error))
+// })
+
+// app.post('/admin/update', (req, res) => {
+//     db.getDB().collection(collection_admin).update(
+//         { username : req.body.username },
+//         {
+//             username : req.body.username,
+//             password : req.body.password,
+//             name : req.body.name
+//         }
+//     )
+//     .then(results => {
+//         res.redirect('/admin/read')
+//     })
+//     .catch(error => console.error(error))
+// })
+
+// app.get('/admin/delete/:username', (req, res) => {
+//     var username = req.params.username
+//     //console.log(username)
+//     db.getDB().collection(collection_admin).remove({username : username})
+//     .then(results => {
+//         console.log(results)
+//         res.redirect('/admin/read')
+//     })
+//     .catch(error => console.error(error))
+// })
+
+// app.get('/admin/login', function(req, res) {
+//     res.sendFile(__dirname + dir + '/login.html')
+// })
+
+
+// app.post('/admin/login_create', (req, res) => {
  
-    db.getDB().collection(collection_admin).findOne({username : req.body.username} ,function(err, user) { 
-        if (user && user.password === req.body.password){
-            res.redirect('/admin/write');
-        }
-        else{
-            res.redirect('/admin/login');
-        }
+//     db.getDB().collection(collection_admin).findOne({username : req.body.username} ,function(err, user) { 
+//         if (user && user.password === req.body.password){
+//             res.redirect('/admin/write');
+//         }
+//         else{
+//             res.redirect('/admin/login');
+//         }
         
-    })
-});
+//     })
+// });
 
 // END OF ADMIN MODULE
 

@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>ADMIN | Update</title>
-</head>
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Admin | Update</title>
+  </head>
 <body>
-  <h1> Update Administrator User : <%= hasil.name %></h1>
-  <form action="/admin/update" method="POST">
-    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
-    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
-    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
-    <button type="submit">Ubah Data Akun</button>
-  </form>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Update Admin</h1><hr>
+    <form action="/admin/update" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Nama Admin</label>
+        <input type="text" class="form-control" name="name" value="<%= hasil.name %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" value="<%= hasil.password %>" required>
+      </div>
+      <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>
+      <hr>
+    </form>
+  </div>
 </body>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 </html>
+
+<script>
+  if("<%= hasil.jenis %>" == "Pembayaran"){
+    document.getElementById("jenis").selectedIndex = 1;
+  }
+  else if("<%= hasil.jenis %>" == "Deposit"){
+    document.getElementById("jenis").selectedIndex = 2;
+  }
+  else{
+    document.getElementById("jenis").selectedIndex = 0;
+  }
+</script>
