@@ -29,28 +29,32 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_pasien).insertOne(
-        {
-            id_pasien : req.body.id_pasien,
-            username : req.body.username,
-            password : req.body.password,
-            name : req.body.name,
-            telepon : req.body.telepon,
-            email : req.body.email,
-            alamat : {
-                provinci : req.body.provinci,
-                kota : req.body.kota,
-                kecamatan : req.body.kecamatan,
-                detail : req.body.detail,
-                kodepos : req.body.kodepos
-            },
-            saldo : req.body.saldo,
-            status : req.body.status
-        }
+    db.getDB().collection(collection_pasien).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(collection_pasien).insertOne(
+            {
+                id_pasien : "PSN_" + results_cd,
+                username : req.body.username,
+                password : req.body.password,
+                name : req.body.name,
+                telepon : req.body.telepon,
+                email : req.body.email,
+                alamat : {
+                    provinci : req.body.provinci,
+                    kota : req.body.kota,
+                    kecamatan : req.body.kecamatan,
+                    detail : req.body.detail,
+                    kodepos : req.body.kodepos
+                },
+                saldo : req.body.saldo,
+                status : req.body.status
+            }
 
-    )
-    .then(results => {
-        res.redirect('/pasien/read')
+        )
+        .then(results => {
+            res.redirect('/pasien/read')
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 }
