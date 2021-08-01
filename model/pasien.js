@@ -110,7 +110,7 @@ exports.loginPasien = async (req,res) => {
 
 exports.loginCreate = async (req,res) => {
     db.getDB().collection(collection_pasien).findOne({username : req.body.username, password : req.body.password} ,function(err, user) { 
-        if (user && user.password === req.body.password){
+        if (user){
             res.redirect('/pasien/write');
         }
         else{
