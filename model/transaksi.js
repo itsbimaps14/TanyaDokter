@@ -29,11 +29,19 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_transaksi).insertOne(req.body)
-    .then(results => {
-        res.redirect('/transaksi/read')
+    db.getDB().collection(collection_transaksi).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(collection_transaksi).insertOne({
+            id_transaksi : "TRX_" + results_cd,
+            id_pengguna : req.body.id_pengguna,
+            jenis : req.body.jenis,
+            nominal : req.body.nominal
+        })
+        .then(results => {
+            res.redirect('/transaksi/read')
+        })
+        .catch(error => console.error(error))
     })
-    .catch(error => console.error(error))
 }
 
 exports.updateData = async (req,res) => {

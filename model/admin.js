@@ -29,11 +29,19 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_admin).insertOne(req.body)
-    .then(results => {
-        res.redirect('/admin/read')
+    db.getDB().collection(collection_admin).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(collection_admin).insertOne({
+            id_admin : "ADM_" + results_cd,
+            username : req.body.username,
+            password : req.body.password,
+            name : req.body.name,
+        })
+        .then(results => {
+            res.redirect('/admin/read')
+        })
+        .catch(error => console.error(error))
     })
-    .catch(error => console.error(error))
 }
 
 exports.updateData = async (req,res) => {
