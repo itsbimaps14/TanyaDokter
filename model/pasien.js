@@ -29,7 +29,24 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_pasien).insertOne(req.body)
+    db.getDB().collection(collection_pasien).insertOne(
+        {
+            id_pasien : req.body.id_pasien,
+            username : req.body.username,
+            password : req.body.password,
+            name : req.body.name,
+            telepon : req.body.telepon,
+            email : req.body.email,
+            alamat : {
+                provinci : req.body.provinci,
+                kota : req.body.kota,
+                kecamatan : req.body.kecamatan,
+                detail : req.body.detail,
+                kodepos : req.body.kodepos
+            }
+        }
+
+    )
     .then(results => {
         res.redirect('/pasien/read')
     })
@@ -56,11 +73,13 @@ exports.updateForm = async (req,res) => {
                     name : req.body.name,
                     telepon : req.body.telepon,
                     email : req.body.email,
-                    provinci : req.body.provinci,
-                    kota : req.body.kota,
-                    kecamatan : req.body.kecamatan,
-                    detail : req.body.detail,
-                    kodepos : req.body.kodepos
+                    alamat : {
+                        provinci : req.body.provinci,
+                        kota : req.body.kota,
+                        kecamatan : req.body.kecamatan,
+                        detail : req.body.detail,
+                        kodepos : req.body.kodepos
+                    }
                 }
         }
     )

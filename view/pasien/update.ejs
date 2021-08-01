@@ -39,23 +39,23 @@
       <hr><h3 class="text-center">Address</h3><hr>
       <div class="form-group col-md-6 offset-md-3">
         <label>Provinsi</label>
-        <input type="text" class="form-control" name="provinci" value="<%= hasil.provinci %>" required>
+        <input type="text" class="form-control" name="provinci" value="<%= hasil.alamat.provinci %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kota</label>
-        <input type="text" class="form-control" name="kota" value="<%= hasil.kota %>" required>
+        <input type="text" class="form-control" name="kota" value="<%= hasil.alamat.kota %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kecamatan</label>
-        <input type="text" class="form-control" name="kecamatan" value="<%= hasil.kecamatan %>" required>
+        <input type="text" class="form-control" name="kecamatan" value="<%= hasil.alamat.kecamatan %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Detail Tambahan</label>
-        <textarea type="text" class="form-control" name="detail" value="<%= hasil.detail %>" required></textarea>
+        <textarea type="text" class="form-control" name="detail" value="<%= hasil.alamat.detail %>" required></textarea>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kodepos</label>
-        <input type="number" class="form-control" name="kodepos" value="<%= hasil.kodepos %>" required>
+        <input type="number" class="form-control" name="kodepos" value="<%= hasil.alamat.kodepos %>" required>
       </div>
       <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>
       <hr>
