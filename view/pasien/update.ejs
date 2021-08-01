@@ -57,6 +57,18 @@
         <label>Kodepos</label>
         <input type="number" class="form-control" name="kodepos" value="<%= hasil.alamat.kodepos %>" required>
       </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Saldo</label>
+        <input type="number" class="form-control" name="saldo" value="<%= hasil.saldo %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Status</label>
+        <select class="form-control" id="status" name="status" required>
+          <option value=""></option>
+          <option value="OK">OK</option>
+          <option value="BelumBayar">Belum Bayar</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>
       <hr>
     </form>

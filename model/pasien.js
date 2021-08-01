@@ -43,7 +43,9 @@ exports.formCreate = async (req,res) => {
                 kecamatan : req.body.kecamatan,
                 detail : req.body.detail,
                 kodepos : req.body.kodepos
-            }
+            },
+            saldo : req.body.saldo,
+            status : req.body.status
         }
 
     )
@@ -79,7 +81,9 @@ exports.updateForm = async (req,res) => {
                         kecamatan : req.body.kecamatan,
                         detail : req.body.detail,
                         kodepos : req.body.kodepos
-                    }
+                    },
+                    saldo : req.body.saldo,
+                    status : req.body.status
                 }
         }
     )

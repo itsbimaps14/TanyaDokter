@@ -18,15 +18,10 @@
               <thead>
                 <tr>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Nama</th>
-                    <th>Phone</th>
                     <th>Email</th> 
-                    <th>Province</th>
-                    <th>City</th>
-                    <th>Districts</th>
-                    <th>Detail</th>
-                    <th>Postal Code</th>
+                    <th>Saldo</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -52,15 +47,10 @@
               "columns":
                   [
                       { "data": "username" },
-                      { "data": "password" },
                       { "data": "name" },
-                      { "data": "telepon" },
                       { "data": "email" },
-                      { "data": "alamat.provinci" },
-                      { "data": "alamat.kota" },
-                      { "data": "alamat.kecamatan" },
-                      { "data": "alamat.detail" },
-                      { "data": "alamat.kodepos" },
+                      { "data": "saldo" },
+                      { "data": "status" },
                       {
                         "data": null,
                         "bSortable": false,
@@ -72,7 +62,7 @@
                   ],
                     'columnDefs': [
                         {
-                            "targets": 10, // your case first column
+                            "targets": 5, // your case first column
                             "className": "text-center"
                         }
                     ]
