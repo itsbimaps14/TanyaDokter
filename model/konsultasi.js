@@ -9,7 +9,24 @@ exports.indexKonsultasi = async (req,res) => {
 }
 
 exports.writeKonsultasi = async (req,res) => {
-    res.render(dir + '/input.ejs')
+    const varCol = "Pasien";
+    const varDok = "Dokter";
+    db.getDB().collection(varCol).find(
+        { },
+        {username : 1, name : 1}
+    ).toArray()
+    .then(results1 => {
+        db.getDB().collection(varDok).find(
+            { },
+            {username : 1, name : 1}
+        ).toArray()
+        .then(results2 => {
+            //console.log(results)
+            res.render(dir + '/input.ejs', { hasil1 : results1, hasil2 : results2  })
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 }
 
 exports.readTable = async (req,res) => {
@@ -29,20 +46,24 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_konsultasi).insertOne(
-        {
-            id_konsultasi   : req.body.id_konsultasi,
-            id_pasien       : req.body.id_pasien,
-            id_dokter       : req.body.id_dokter,
-            tanggal         : req.body.tanggal,
-            jam_mulai       : req.body.jam_mulai,
-            jam_selesai     : req.body.jam_selesai,
-            diskusi         : [],
-            status          : req.body.status
-        }
-    )
-    .then(results => {
-        res.redirect('/konsultasi/read')
+    db.getDB().collection(collection_konsultasi).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(collection_konsultasi).insertOne(
+            {
+                id_konsultasi   : "KSL_" + results_cd,
+                id_pasien       : req.body.id_pasien,
+                id_dokter       : req.body.id_dokter,
+                tanggal         : req.body.tanggal,
+                jam_mulai       : req.body.jam_mulai,
+                jam_selesai     : req.body.jam_selesai,
+                diskusi         : [],
+                status          : req.body.status
+            }
+        )
+        .then(results => {
+            res.redirect('/konsultasi/read')
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 }
