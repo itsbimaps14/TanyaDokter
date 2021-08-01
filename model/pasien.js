@@ -53,7 +53,14 @@ exports.updateForm = async (req,res) => {
         {
             $set : {
                     password : req.body.password,
-                    name : req.body.name
+                    name : req.body.name,
+                    telepon : req.body.telepon,
+                    email : req.body.email,
+                    provinci : req.body.provinci,
+                    kota : req.body.kota,
+                    kecamatan : req.body.kecamatan,
+                    detail : req.body.detail,
+                    kodepos : req.body.kodepos
                 }
         }
     )
