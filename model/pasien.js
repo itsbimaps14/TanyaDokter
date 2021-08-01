@@ -118,3 +118,43 @@ exports.loginCreate = async (req,res) => {
         }  
     })
 }
+
+exports.requestKonsultasi = async (req,res) => {
+    res.render(dir + '/request.ejs')
+}
+
+exports.readRequestKonsultasi = async (req,res) => {
+    const colDokter = "Dokter";
+
+    db.getDB().collection(colDokter).find(
+        {status : "Aktif"},
+        {id_dokter:1, name:1, spesialis:1, harga:1, str:1}
+    ).toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error)) 
+}
+
+exports.sendRequestKonsultasi = async (req,res) => {
+    const colDokter = "Konsultasi";
+    var dokter = req.params.dokter
+    
+    db.getDB().collection(colDokter).insertOne(
+        {
+            id_konsultasi   : "Nunggu Nabil",
+            id_pasien       : "Session",
+            id_dokter       : dokter,
+            tanggal         : "",
+            jam_mulai       : "",
+            jam_selesai     : "",
+            diskusi         : [],
+            status          : "Requested"
+        }
+    )
+    .then(results => {
+        res.redirect('/pasien/request');
+    })
+    .catch(error => console.error(error))
+
+}

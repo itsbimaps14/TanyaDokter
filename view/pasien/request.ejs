@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Bootstrap Core CSS -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <title>Pasien | Konsultasi</title>
+</head>
+<body>
+    <br>
+    <div class="container border">
+        <hr><h1 class="text-center">Request Konsultasi</h1><hr>
+        <div class="table">
+            <table id="tabel" class="display" style="width: 100%;">
+              <thead>
+                <tr>
+                    <th>Nama Dokter</th>
+                    <th>Spesialis</th>
+                    <th>Harga</th> 
+                    <th>STR</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+</body>
+<script>
+  $(document).ready(function () {
+     $('#tabel').DataTable({
+          "processing": true,
+          "serverSide": false,
+          "ajax": {
+              "data": "json",
+              "type": "GET",
+              "url": "/pasien/request/proses",
+              dataSrc:""
+          },
+              "columns":
+                  [
+                      { "data": "name" },
+                      { "data": "spesialis" },
+                      { "data": "harga" },
+                      { "data": "str" },
+                      {
+                        "data": null,
+                        "bSortable": false,
+                        "mRender": function (data, type, row) { 
+                            return  '<a href=/pasien/request/proses/' + row.id_dokter + '><button type="button" class="btn btn-primary">' + 'Request Konsul' + '</button></a>'
+                        }
+                      }
+                  ],
+                    'columnDefs': [
+                        {
+                            "targets": 4, // your case first column
+                            "className": "text-center"
+                        }
+                    ]
+      });
+  });
+</script>
+</html>
