@@ -19,11 +19,9 @@
                 <tr>
                     <th>Username</th>
                     <th>Nama</th>
-                    <th>Phone</th>
                     <th>Email</th> 
                     <th>Spesialis</th>
                     <th>String</th>
-                    <th>Saldo</th>
                     <th>Status</th>
                     <th>Harga</th>
                     <th>Action</th>
@@ -52,7 +50,6 @@
                   [
                       { "data": "username" },
                       { "data": "name" },
-                      { "data": "telepon" },
                       { "data": "email" },
                       { "data": "spesialis" },
                       {
@@ -62,7 +59,6 @@
                               return '<a href=/dokter/surat/' + row.string + '><button type="button" class="btn btn-success">' + 'Link' + '</button></a>'; 
                           }
                       },
-                      { "data": "saldo" },
                       { "data": "status" },
                       { "data": "harga" },
                       {
@@ -76,7 +72,7 @@
                   ],
                     'columnDefs': [
                         {
-                            "targets": 9, // your case first column
+                            "targets": 7, // your case first column
                             "className": "text-center"
                         }
                     ]

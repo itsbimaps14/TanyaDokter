@@ -35,65 +35,76 @@
       <hr class="col-md-6 offset-md-3">
       <div class="form-group col-md-6 offset-md-3">
         <label>Provinsi</label>
-        <input type="text" class="form-control" name="provinsipraktik" value="<%= hasil.provinsipraktik %>">
+        <input type="text" class="form-control" name="provinsiP" value="<%= hasil.alamat.praktik.provinsi %>">
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kota</label>
-        <input type="text" class="form-control" name="kotapraktik" value="<%= hasil.kotapraktik %>">
+        <input type="text" class="form-control" name="kotaP" value="<%= hasil.alamat.praktik.kota %>">
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kecamatan</label>
-        <input type="text" class="form-control" name="kecamatanpraktik" value="<%= hasil.kecamatanpraktik %>">
+        <input type="text" class="form-control" name="kecP" value="<%= hasil.alamat.praktik.kec %>">
       </div>
       <div class="form-group green-border-focus col-md-6 offset-md-3">
         <label>Detail Tambahan</label>
-        <textarea class="form-control" name="detailpraktik" rows="3"><%= hasil.detailpraktik %></textarea>
+        <textarea class="form-control" name="detailP" rows="3"><%= hasil.alamat.praktik.detail %></textarea>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kode Pos</label>
-        <input type="number" class="form-control" name="kodepospraktik" value="<%= hasil.kodepospraktik %>">
+        <input type="number" class="form-control" name="kode_posP" value="<%= hasil.alamat.praktik.kode_pos %>">
       </div>
       
       <h4 class="text-center"> Alamat Pribadi </h4>
       <hr class="col-md-6 offset-md-3">
       <div class="form-group col-md-6 offset-md-3">
         <label>Provinsi</label>
-        <input type="text" class="form-control" name="provinsi" value="<%= hasil.provinsi %>">
+        <input type="text" class="form-control" name="provinsi" value="<%= hasil.alamat.tinggal.provinsi %>">
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kota</label>
-        <input type="text" class="form-control" name="kota" value="<%= hasil.kota %>">
+        <input type="text" class="form-control" name="kota" value="<%= hasil.alamat.tinggal.kota %>">
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kecamatan</label>
-        <input type="text" class="form-control" name="kecamatan" value="<%= hasil.kecamatan %>">
+        <input type="text" class="form-control" name="kec" value="<%= hasil.alamat.tinggal.kec %>">
       </div>
       <div class="form-group green-border-focus col-md-6 offset-md-3">
         <label>Detail Tambahan</label>
-        <textarea class="form-control" name="detail" rows="3"><%= hasil.detail %></textarea>
+        <textarea class="form-control" name="detail" rows="3"><%= hasil.alamat.tinggal.detail %></textarea>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kode Pos</label>
-        <input type="number" class="form-control" name="kodepos" value="<%= hasil.kodepos %>">
+        <input type="number" class="form-control" name="kode_pos" value="<%= hasil.alamat.tinggal.kode_pos %>">
       </div>
 
       <h4 class="text-center"> Data Detail </h4>
       <hr class="col-md-6 offset-md-3">
       <div class="form-group col-md-6 offset-md-3">
         <label>Spesialis</label>
-        <input type="text" class="form-control" name="spesialis" value="<%= hasil.spesialis %>">
+        <select class="form-control" id="spesialis" name="spesialis" required>
+          <option value=""></option>
+          <option value="Kulit">Kulit</option>
+          <option value="Mata">Mata</option>
+          <option value="THT">THT</option>
+          <option value="OrganDalam">Organ Dalam</option>
+          <option value="Kecantikan">Kecantikan</option>
+        </select>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>String</label>
-        <input type="text" class="form-control" name="string" value="<%= hasil.string %>">
+        <label>Surat Tanda Registrasi Dokter</label>
+        <input type="text" class="form-control" name="str" value="<%= hasil.str %>" readonly>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Saldo</label>
         <input type="number" class="form-control" name="saldo" value="<%= hasil.saldo %>">
       </div>
-      <div class="form-group green-border-focus col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
         <label>Status</label>
-        <input type="number" class="form-control" name="status" value="<%= hasil.status %>">
+        <select class="form-control" id="status" name="status" required>
+          <option value=""></option>
+          <option value="Aktif">Aktif</option>
+          <option value="TidakAktif">Tidak Aktif</option>
+        </select>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kode Pos</label>

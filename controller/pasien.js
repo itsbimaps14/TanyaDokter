@@ -12,5 +12,6 @@ router.post('/login_create', pasienAPI.loginCreate)
 router.get('/update/:username', pasienAPI.updateData)
 router.post('/update', pasienAPI.updateForm)
 router.get('/delete/:username', pasienAPI.deleteData)
+router.get('/xx', pasienAPI.read)
 
 module.exports = router

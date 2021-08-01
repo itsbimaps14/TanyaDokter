@@ -29,7 +29,46 @@ exports.readDokter = async (req,res) => {
 }
 
 exports.formCreateDokter = async (req,res) => {
-    db.getDB().collection(collectionVar).insertOne(req.body)
+    db.getDB().collection(collectionVar).insertOne(
+        {
+            id_dokter : req.body.id_dokter,
+            username  : req.body.username,
+            password  : req.body.password,
+            name      : req.body.name,
+            telepon   : req.body.telepon,
+            email     : req.body.email,
+            alamat    : {
+                praktik   : {
+                    provinsi  : req.body.provinsipraktik,
+                    kota      : req.body.kotapraktik,
+                    kec       : req.body.kecamatanpraktik,
+                    detail    : req.body.detailpraktik,
+                    kode_pos  : req.body.kodepospraktik,
+                },
+                tinggal   : {
+                    provinsi  : req.body.provinsi,
+                    kota      : req.body.kota,
+                    kec       : req.body.kecamatan,
+                    detail    : req.body.detail,
+                    kode_pos  : req.body.kodepos,
+                }
+            },
+            spesialis : req.body.spesialis,
+            str       : req.body.str,
+            saldo     : req.body.saldo,
+            status    : req.body.status,
+            harga     : req.body.harga
+        },
+        {
+            writeConcern: {
+                w : "majority", 
+                wtimeout : 100
+            }
+        },
+        {
+
+        }
+    )
     .then(results => {
         res.redirect('/dokter/read')
     })
@@ -55,16 +94,22 @@ exports.updateFormDokter = async (req,res) => {
                 name : req.body.name,
                 telepon : req.body.telepon,
                 email : req.body.email,
-                provinsipraktik : req.body.provinsipraktik,
-                kotapraktik : req.body.kotapraktik,
-                kecamatanpraktik : req.body.kecamatanpraktik,
-                detailpraktik : req.body.detailpraktik,
-                kodepospraktik : req.body.kodepospraktik,
-                provinsi : req.body.provinsi,
-                kota : req.body.kota,
-                kecamatan : req.body.kecamatan,
-                detail : req.body.detail,
-                kodepos : req.body.kodepos,
+                alamat    : {
+                    praktik   : {
+                        provinsi  : req.body.provinsiP,
+                        kota      : req.body.kotaP,
+                        kec       : req.body.kecP,
+                        detail    : req.body.detailP,
+                        kode_pos  : req.body.kode_posP,
+                    },
+                    tinggal   : {
+                        provinsi  : req.body.provinsi,
+                        kota      : req.body.kota,
+                        kec       : req.body.kec,
+                        detail    : req.body.detail,
+                        kode_pos  : req.body.kode_pos,
+                    }
+                },
                 spesialis : req.body.spesialis,
                 saldo : req.body.saldo,
                 status : req.body.status,

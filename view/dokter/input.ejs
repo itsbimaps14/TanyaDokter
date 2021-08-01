@@ -15,24 +15,28 @@
     <h4 class="text-center"> Data Pribadi </h4>
       <hr class="col-md-6 offset-md-3">
       <div class="form-group col-md-6 offset-md-3">
+        <label>ID Dokter</label>
+        <input type="text" class="form-control" name="id_dokter" required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
         <label>Username</label>
-        <input type="text" class="form-control" name="username" >
+        <input type="text" class="form-control" name="username" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Password</label>
-        <input type="password" class="form-control" name="password" >
+        <input type="password" class="form-control" name="password" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Nama</label>
-        <input type="text" class="form-control" name="name">
+        <input type="text" class="form-control" name="name" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>No. Telp</label>
-        <input type="number" class="form-control" name="telepon">
+        <input type="number" class="form-control" name="telepon" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Alamat Email</label>
-        <input type="email" class="form-control" name="email">
+        <input type="email" class="form-control" name="email" required>
       </div>
 
       <h4 class="text-center"> Alamat Praktik </h4>
@@ -85,23 +89,34 @@
       <hr class="col-md-6 offset-md-3">
       <div class="form-group col-md-6 offset-md-3">
         <label>Spesialis</label>
-        <input type="text" class="form-control" name="spesialis">
+        <select class="form-control" id="spesialis" name="spesialis" required>
+          <option value=""></option>
+          <option value="Kulit">Kulit</option>
+          <option value="Mata">Mata</option>
+          <option value="THT">THT</option>
+          <option value="OrganDalam">Organ Dalam</option>
+          <option value="Kecantikan">Kecantikan</option>
+        </select>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>String</label>
-        <input type="text" class="form-control" name="string">
+        <label>Surat Tanda Registrasi Dokter</label>
+        <input type="text" class="form-control" name="str" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Saldo</label>
-        <input type="number" class="form-control" name="saldo">
+        <input type="number" class="form-control" name="saldo" required>
       </div>
-      <div class="form-group green-border-focus col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
         <label>Status</label>
-        <input type="number" class="form-control" name="status">
+        <select class="form-control" id="status" name="status" required>
+          <option value=""></option>
+          <option value="Aktif">Aktif</option>
+          <option value="TidakAktif">Tidak Aktif</option>
+        </select>
       </div>
       <div class="form-group col-md-6 offset-md-3">
         <label>Kode Pos</label>
-        <input type="number" class="form-control" name="harga">
+        <input type="number" class="form-control" name="harga" required>
       </div>
       
       <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Submit</button>
