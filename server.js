@@ -170,6 +170,24 @@ app.get('/pasien/delete/:username', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/pasien/login', function(req, res) {
+    res.sendFile(__dirname + dir1 + '/login.html')
+})
+
+
+app.post('/pasien/login_create', (req, res) => {
+ 
+    db.getDB().collection(collection_pasien).findOne({username : req.body.username} ,function(err, user) { 
+        if (user && user.password === req.body.password){
+            res.redirect('/pasien/write');
+        }
+        else{
+            res.redirect('/pasien/login');
+        }
+        
+    })
+});
+
 // END OF PASIEN MODULE
 
 // KONSULTASI MODULE
