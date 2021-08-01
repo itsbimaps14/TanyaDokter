@@ -4,11 +4,11 @@ const db = require("../model/connection.js")
 
 // KONSULTASI TRANSAKSI MODULE
 
-exports.indexKonsultasi = async (req,res) => {
+exports.indexTransaksi = async (req,res) => {
     res.redirect('/transaksi/read')
 }
 
-exports.writeKonsultasi = async (req,res) => {
+exports.writeTransaksi = async (req,res) => {
     res.render(dir + '/input.ejs')
 }
 
