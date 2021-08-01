@@ -94,6 +94,24 @@ app.get('/admin/delete/:username', (req, res) => {
     .catch(error => console.error(error))
 })
 
+app.get('/admin/login', function(req, res) {
+    res.sendFile(__dirname + dir + '/login.html')
+})
+
+
+app.post('/admin/login_create', (req, res) => {
+ 
+    db.getDB().collection(collection_admin).findOne({username : req.body.username} ,function(err, user) { 
+        if (user && user.password === req.body.password){
+            res.redirect('/admin/write');
+        }
+        else{
+            res.redirect('/admin/login');
+        }
+        
+    })
+});
+
 // END OF ADMIN MODULE
 
 // PASIEN MODULE
@@ -169,6 +187,24 @@ app.get('/pasien/delete/:username', (req, res) => {
     })
     .catch(error => console.error(error))
 })
+
+app.get('/pasien/login', function(req, res) {
+    res.sendFile(__dirname + dir1 + '/login.html')
+})
+
+
+app.post('/pasien/login_create', (req, res) => {
+ 
+    db.getDB().collection(collection_pasien).findOne({username : req.body.username} ,function(err, user) { 
+        if (user && user.password === req.body.password){
+            res.redirect('/pasien/write');
+        }
+        else{
+            res.redirect('/pasien/login');
+        }
+        
+    })
+});
 
 // END OF PASIEN MODULE
 
@@ -331,6 +367,24 @@ app.get('/dokter/delete/:username', (req, res) => {
     })
     .catch(error => console.error(error))
 })
+
+app.get('/dokter/login', function(req, res) {
+    res.sendFile(__dirname + dir4 + '/login.html')
+})
+
+
+app.post('/dokter/login_create', (req, res) => {
+ 
+    db.getDB().collection(collection_dokter).findOne({username : req.body.username} ,function(err, user) { 
+        if (user && user.password === req.body.password){
+            res.redirect('/dokter/write');
+        }
+        else{
+            res.redirect('/dokter/login');
+        }
+        
+    })
+});
 
 // END OF DOKTER MODULE
 
