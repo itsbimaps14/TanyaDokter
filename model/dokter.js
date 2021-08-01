@@ -29,39 +29,43 @@ exports.readDokter = async (req,res) => {
 }
 
 exports.formCreateDokter = async (req,res) => {
-    db.getDB().collection(collectionVar).insertOne(
-        {
-            id_dokter : req.body.id_dokter,
-            username  : req.body.username,
-            password  : req.body.password,
-            name      : req.body.name,
-            telepon   : req.body.telepon,
-            email     : req.body.email,
-            alamat    : {
-                praktik   : {
-                    provinsi  : req.body.provinsipraktik,
-                    kota      : req.body.kotapraktik,
-                    kec       : req.body.kecamatanpraktik,
-                    detail    : req.body.detailpraktik,
-                    kode_pos  : req.body.kodepospraktik,
+    db.getDB().collection(collectionVar).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(collectionVar).insertOne(
+            {
+                id_dokter : "DKT_" + results_cd,
+                username  : req.body.username,
+                password  : req.body.password,
+                name      : req.body.name,
+                telepon   : req.body.telepon,
+                email     : req.body.email,
+                alamat    : {
+                    praktik   : {
+                        provinsi  : req.body.provinsipraktik,
+                        kota      : req.body.kotapraktik,
+                        kec       : req.body.kecamatanpraktik,
+                        detail    : req.body.detailpraktik,
+                        kode_pos  : req.body.kodepospraktik,
+                    },
+                    tinggal   : {
+                        provinsi  : req.body.provinsi,
+                        kota      : req.body.kota,
+                        kec       : req.body.kecamatan,
+                        detail    : req.body.detail,
+                        kode_pos  : req.body.kodepos,
+                    }
                 },
-                tinggal   : {
-                    provinsi  : req.body.provinsi,
-                    kota      : req.body.kota,
-                    kec       : req.body.kecamatan,
-                    detail    : req.body.detail,
-                    kode_pos  : req.body.kodepos,
-                }
-            },
-            spesialis : req.body.spesialis,
-            str       : req.body.str,
-            saldo     : req.body.saldo,
-            status    : req.body.status,
-            harga     : req.body.harga
-        }
-    )
-    .then(results => {
-        res.redirect('/dokter/read')
+                spesialis : req.body.spesialis,
+                str       : req.body.str,
+                saldo     : req.body.saldo,
+                status    : req.body.status,
+                harga     : req.body.harga
+            }
+        )
+        .then(results => {
+            res.redirect('/dokter/read')
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 }
