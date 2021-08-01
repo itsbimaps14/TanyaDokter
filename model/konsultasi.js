@@ -29,7 +29,18 @@ exports.read = async (req,res) => {
 }
 
 exports.formCreate = async (req,res) => {
-    db.getDB().collection(collection_konsultasi).insertOne(req.body)
+    db.getDB().collection(collection_konsultasi).insertOne(
+        {
+            id_konsultasi   : req.body.id_konsultasi,
+            id_pasien       : req.body.id_pasien,
+            id_dokter       : req.body.id_dokter,
+            tanggal         : req.body.tanggal,
+            jam_mulai       : req.body.jam_mulai,
+            jam_selesai     : req.body.jam_selesai,
+            diskusi         : [],
+            status          : req.body.status
+        }
+    )
     .then(results => {
         res.redirect('/konsultasi/read')
     })
@@ -52,13 +63,9 @@ exports.updateForm = async (req,res) => {
         { id_konsultasi : req.body.id_konsultasi },
         {
             $set : {
-                    pasien : req.body.pasien,
-                    dokter : req.body.dokter,
                     tanggal : req.body.tanggal,
                     jam_mulai : req.body.jam_mulai,
                     jam_selesai : req.body.jam_selesai,
-                    pengirim : req.body.pengirim,
-                    detail : req.body.detail,
                     status : req.body.status
                 }
         }
