@@ -1,41 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    .dropbtn {
-      background-color: #04AA6D;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-    }
-      
-    .dropdown {
-    position: relative;
-    display: inline-block;
-    }
-       
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-        
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-        
-    .dropdown-content a:hover {background-color: #ddd;}
-        
-    .dropdown:hover .dropdown-content {display: block;}
-        
-    .dropdown:hover .dropbtn {background-color: #3e8e41;}
-</style>
 <head>
   <meta charset="UTF-8">
   <title>Create - Find</title>
@@ -45,14 +9,6 @@
   <form action="/konsultasi/form_create" method="POST">
     <input type="text" placeholder="Id Konsultasi" name="id_konsultasi"><br><br>
     <input type="text" placeholder="Id Pasien" name="pasien"><br><br>
-    <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-    </div><br><br>
     <input type="text" placeholder="Id Dokter" name="dokter"><br><br>
     <input type="date" value="2020-07-02" name="tanggal">
     <h4>Waktu Mulai</h4>
