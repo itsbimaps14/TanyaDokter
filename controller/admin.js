@@ -12,5 +12,7 @@ router.post('/login_create', adminAPI.loginCreate)
 router.get('/update/:username', adminAPI.updateData)
 router.post('/update', adminAPI.updateForm)
 router.get('/delete/:username', adminAPI.deleteData)
+router.get('/topup', adminAPI.deposit)
+router.post('/authDeposit', adminAPI.authDeposit)
 
 module.exports = router

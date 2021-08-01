@@ -88,3 +88,71 @@ exports.loginCreate = async (req,res) => {
         }  
     })
 }
+
+exports.deposit = async (req, res) => {
+    const varCol = "Pasien";
+    db.getDB().collection(varCol).find(
+        { },
+        {username : 1, name : 1}
+    ).toArray()
+    .then(results => {
+        //console.log(results)
+        res.render(dir + '/top_up.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+}
+
+exports.authDeposit = async (req, res) => {
+    const varPasien = "Pasien";
+    const varTrx = "Transaksi";
+    var saldoAkhir = parseInt(getPasienSaldo(req.body.id_pasien)) + parseInt(req.body.nominal);
+
+    db.getDB().collection(varPasien).updateOne(
+        { username : req.body.id_pasien },
+        {
+            $set : {
+                    saldo : saldoAkhir
+                }
+        }
+    )
+    .then(results => {
+        db.getDB().collection(varTrx).insertOne(
+            {
+                id_transaksi : getPasienUrutanTrx(),
+                id_pengguna : req.body.id_pasien,
+                nominal : req.body.nominal,
+                jenis : "Deposit"
+            }
+        )
+        .then(results => {
+            res.redirect('/admin/topup')
+        })
+        .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
+}
+
+// Modul Bantuan
+
+getPasienSaldo = function (username) {
+    const varCol = "Pasien";
+    db.getDB().collection(varCol).findOne(
+        {
+            username : username
+        }
+    )
+    .then(results => {
+        return results.saldo;
+    })
+    .catch(error => console.error(error))
+};
+
+var getPasienUrutanTrx = function () {
+    const varCol = "Pasien";
+    db.getDB().collection(varCol).countDocuments()
+    .then(results => {
+        console.log(results + " - getPasienUrutan")
+        return "TRX_" + results.toString();
+    })
+    .catch(error => console.error(error))
+};

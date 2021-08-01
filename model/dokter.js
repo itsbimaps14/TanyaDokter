@@ -58,15 +58,6 @@ exports.formCreateDokter = async (req,res) => {
             saldo     : req.body.saldo,
             status    : req.body.status,
             harga     : req.body.harga
-        },
-        {
-            writeConcern: {
-                w : "majority", 
-                wtimeout : 100
-            }
-        },
-        {
-
         }
     )
     .then(results => {

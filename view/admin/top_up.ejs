@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Admin | Create</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Deposit Pasien</h1><hr>
+    <form action="/admin/authDeposit" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Pasien</label>
+        <select class="form-control" id="pasien" name="id_pasien" required>
+          <option value=""></option>
+          <% for(var i = 0; i < hasil.length; i++) { %>
+            <option value="<%= hasil[i].username %>">
+              <%= hasil[i].name %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Nominal</label>
+        <input type="number" class="form-control" name="nominal">
+      </div>
+      <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Simpan</button>
+      <hr>
+    </form>
+  </div>
+</body>
+</html>
