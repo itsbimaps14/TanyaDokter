@@ -1,36 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>PASIEN | Update</title>
-</head>
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Dokter | Update</title>
+  </head>
 <body>
-  <h1> Update Pasien User : <%= hasil.name %></h1>
-  <form action="/dokter/update" method="POST">
-    <input type="text" name="username" value="<%= hasil.username %>"><br><br>
-    <input type="text" name="password" value="<%= hasil.password %>"><br><br>
-    <input type="text" name="name" value="<%= hasil.name %>"><br><br>
-    <input type="text" name="telepon" value="<%= hasil.telepon %>"><br><br>
-    <input type="text" name="email" value="<%= hasil.email %>"><br><br>
-    <h4> Adress Praktik </h4>
-    <input type="text" name="provinsipraktik" value="<%= hasil.provinsipraktik %>"><br><br>
-    <input type="text" name="kotapraktik" value="<%= hasil.kotapraktik %>"><br><br>
-    <input type="text" name="kecamatanpraktik" value="<%= hasil.kecamatanpraktik %>"><br><br>
-    <input type="text" name="detailpraktik" value="<%= hasil.detailpraktik %>"><br><br>
-    <input type="text" name="kodepospraktik" value="<%= hasil.kodepospraktik %>"><br><br>
-    <h4> Adress Tinggal </h4>
-    <input type="text" name="provinsi" value="<%= hasil.provinsi %>"><br><br>
-    <input type="text" name="kota" value="<%= hasil.kota %>"><br><br>
-    <input type="text" name="kecamatan" value="<%= hasil.kecamatan %>"><br><br>
-    <input type="text" name="detail" value="<%= hasil.detail %>"><br><br>
-    <input type="text" name="kodepos" value="<%= hasil.kodepos %>"><br><br>
-    <h4> Detail </h4>
-    <input type="text" name="spesialis" value="<%= hasil.spesialis %>"><br><br>
-    <input type="text" name="string" value="<%= hasil.string %>"><br><br>
-    <input type="text" name="saldo" value="<%= hasil.saldo %>"><br><br>
-    <input type="text" name="status" value="<%= hasil.status %>"><br><br>
-    <input type="text" name="harga" value="<%= hasil.harga %>"><br><br>
-    <button type="submit">Ubah Data Akun</button>
-  </form>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Ubah Data Dokter</h1><hr>
+    <form action="/dokter/update" method="POST">
+      <h4 class="text-center"> Data Pribadi </h4>
+      <hr class="col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Nama</label>
+        <input type="text" class="form-control" name="name" value="<%= hasil.name %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>No. Telp</label>
+        <input type="number" class="form-control" name="telepon" value="<%= hasil.telepon %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Alamat Email</label>
+        <input type="email" class="form-control" name="email" value="<%= hasil.email %>">
+      </div>
+
+      <h4 class="text-center"> Alamat Praktik </h4>
+      <hr class="col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Provinsi</label>
+        <input type="text" class="form-control" name="provinsipraktik" value="<%= hasil.provinsipraktik %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kota</label>
+        <input type="text" class="form-control" name="kotapraktik" value="<%= hasil.kotapraktik %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kecamatan</label>
+        <input type="text" class="form-control" name="kecamatanpraktik" value="<%= hasil.kecamatanpraktik %>">
+      </div>
+      <div class="form-group green-border-focus col-md-6 offset-md-3">
+        <label>Detail Tambahan</label>
+        <textarea class="form-control" name="detailpraktik" rows="3"><%= hasil.detailpraktik %></textarea>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kode Pos</label>
+        <input type="number" class="form-control" name="kodepospraktik" value="<%= hasil.kodepospraktik %>">
+      </div>
+      
+      <h4 class="text-center"> Alamat Pribadi </h4>
+      <hr class="col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Provinsi</label>
+        <input type="text" class="form-control" name="provinsi" value="<%= hasil.provinsi %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kota</label>
+        <input type="text" class="form-control" name="kota" value="<%= hasil.kota %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kecamatan</label>
+        <input type="text" class="form-control" name="kecamatan" value="<%= hasil.kecamatan %>">
+      </div>
+      <div class="form-group green-border-focus col-md-6 offset-md-3">
+        <label>Detail Tambahan</label>
+        <textarea class="form-control" name="detail" rows="3"><%= hasil.detail %></textarea>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kode Pos</label>
+        <input type="number" class="form-control" name="kodepos" value="<%= hasil.kodepos %>">
+      </div>
+
+      <h4 class="text-center"> Data Detail </h4>
+      <hr class="col-md-6 offset-md-3">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Spesialis</label>
+        <input type="text" class="form-control" name="spesialis" value="<%= hasil.spesialis %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>String</label>
+        <input type="text" class="form-control" name="string" value="<%= hasil.string %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Saldo</label>
+        <input type="number" class="form-control" name="saldo" value="<%= hasil.saldo %>">
+      </div>
+      <div class="form-group green-border-focus col-md-6 offset-md-3">
+        <label>Status</label>
+        <input type="number" class="form-control" name="status" value="<%= hasil.status %>">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Kode Pos</label>
+        <input type="number" class="form-control" name="harga" value="<%= hasil.harga %>">
+      </div>
+      
+      <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Masuk</button>
+      <br>
+    </form>
+    <br>
+  </div>
+  <br>
 </body>
 </html>

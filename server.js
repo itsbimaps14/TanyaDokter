@@ -19,6 +19,7 @@ const app = express();
 const transaksiRoutes    = require('./controller/transaksi');
 const adminRoutes    = require('./controller/admin');
 const pasienRoutes    = require('./controller/pasien');
+const dokterRoutes    = require('./controller/dokter');
 
 // Make sure you place body-parser before your CRUD handlers!
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -35,6 +36,12 @@ app.use('/admin', adminRoutes);
 // Panggil Pasien
 app.use('/pasien', pasienRoutes);
 
+// Panggil Dokter
+app.use('/dokter', dokterRoutes);
+
+// ADMIN MODULE
+
+// PASIEN MODULE
 
 // KONSULTASI MODULE
 
@@ -113,108 +120,6 @@ app.get('/konsultasi/delete/:id_konsultasi', (req, res) => {
 // END OF KONSULTASI MODULE
 
 // DOKTER MODULE
-
-app.get('/dokter/write', function(req, res) {
-    res.sendFile(__dirname + dir4 + '/input.html')
-})
-
-app.get('/dokter/read/table', function(req, res) {
-    db.getDB().collection(collection_dokter).find().toArray()
-    .then(results => {
-        res.json(results)
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/read', function(req, res) {
-    db.getDB().collection(collection_dokter).find().toArray()
-    .then(results => {
-        res.render(__dirname + dir4 + '/view.ejs', { hasil: results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/dokter/form_create', (req, res) => {
-    db.getDB().collection(collection_dokter).insertOne(req.body)
-    .then(results => {
-        res.redirect('/dokter/write')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/update/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_dokter).findOne({username : username})
-    .then(results => {
-        console.log(results)
-        res.render(__dirname + dir4 + '/update.ejs', { hasil : results })
-    })
-    .catch(error => console.error(error))
-})
-
-app.post('/dokter/update', (req, res) => {
-    db.getDB().collection(collection_dokter).update(
-        { username : req.body.username },
-        {
-            username : req.body.username,
-            password : req.body.password,
-            name : req.body.name,
-            telepon : req.body.telepon,
-            email : req.body.email,
-            provinsipraktik : req.body.provinsipraktik,
-            kotapraktik : req.body.kotapraktik,
-            kecamatanpraktik : req.body.kecamatanpraktik,
-            detailpraktik : req.body.detailpraktik,
-            kodepospraktik : req.body.kodepospraktik,
-            provinsi : req.body.provinsi,
-            kota : req.body.kota,
-            kecamatan : req.body.kecamatan,
-            detail : req.body.detail,
-            kodepos : req.body.kodepos,
-            spesialis : req.body.spesialis,
-            string : req.body.string,
-            saldo : req.body.saldo,
-            status : req.body.status,
-            harga : req.body.harga
-        }
-    )
-    .then(results => {
-        res.redirect('/dokter/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/delete/:username', (req, res) => {
-    var username = req.params.username
-    //console.log(username)
-    db.getDB().collection(collection_dokter).remove({username : username})
-    .then(results => {
-        console.log(results)
-        res.redirect('/dokter/read')
-    })
-    .catch(error => console.error(error))
-})
-
-app.get('/dokter/login', function(req, res) {
-    res.sendFile(__dirname + dir4 + '/login.html')
-})
-
-
-app.post('/dokter/login_create', (req, res) => {
- 
-    db.getDB().collection(collection_dokter).findOne({username : req.body.username} ,function(err, user) { 
-        if (user && user.password === req.body.password){
-            res.redirect('/dokter/write');
-        }
-        else{
-            res.redirect('/dokter/login');
-        }
-        
-    })
-});
-
-// END OF DOKTER MODULE
 
 // ESENSIAL MODULE
 app.get('/testing', function(req, res) {

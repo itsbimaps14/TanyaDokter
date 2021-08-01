@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Dokter | Login</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Login Sebagai Dokter</h1><hr>
+    <form action="/dokter/login/auth" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+      <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Masuk</button>
+    </form>
+    <br>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+</html>

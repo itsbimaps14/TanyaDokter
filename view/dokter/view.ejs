@@ -5,30 +5,22 @@
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <meta charset="UTF-8">
-  <title>READ - VIEW</title>
+  <title>Dokter - Data</title>
 </head>
 <body>
-    <h2> Hasil </h2> <br>
+    <br>
+    <div class="container border">
+        <hr><h1 class="text-center">Data Dokter</h1><hr>
+        <a class="btn btn-success col-md-2 offset-md-5" href="/dokter/write" role="button">Tambah Dokter</a>
+        <hr>
         <div class="table cols-md-12">
             <table id="tabel" class="display" style="width: 100%;">
               <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Nama</th>
                     <th>Phone</th>
                     <th>Email</th> 
-                    <th>Province</th>
-                    <th>City</th>
-                    <th>Districts</th>
-                    <th>Detail</th>
-                    <th>Postal Code</th>
-                    <th>Province</th>
-                    <th>City</th>
-                    <th>Districts</th>
-                    <th>Detail</th>
-                    <th>Postal Code</th>
                     <th>Spesialis</th>
                     <th>String</th>
                     <th>Saldo</th>
@@ -40,7 +32,7 @@
                 <tbody></tbody>
             </table>
         </div>
-
+    </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -58,24 +50,18 @@
           },
               "columns":
                   [
-                      { "data": "_id" },
                       { "data": "username" },
-                      { "data": "password" },
                       { "data": "name" },
                       { "data": "telepon" },
                       { "data": "email" },
-                      { "data": "provinsipraktik" },
-                      { "data": "kotapraktik" },
-                      { "data": "kecamatanpraktik" },
-                      { "data": "detailpraktik" },
-                      { "data": "kodepospraktik" },
-                      { "data": "provinsi" },
-                      { "data": "kota" },
-                      { "data": "kecamatan" },
-                      { "data": "detail" },
-                      { "data": "kodepos" },
                       { "data": "spesialis" },
-                      { "data": "string" },
+                      {
+                          "data": null,
+                          "bSortable": false,
+                          "mRender": function (data, type, row) {
+                              return '<a href=/dokter/surat/' + row.string + '><button type="button" class="btn btn-success">' + 'Link' + '</button></a>'; 
+                          }
+                      },
                       { "data": "saldo" },
                       { "data": "status" },
                       { "data": "harga" },
@@ -87,7 +73,13 @@
                                      '<a href=/dokter/delete/' + row.username + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
                           }
                       }                       
-                  ]
+                  ],
+                    'columnDefs': [
+                        {
+                            "targets": 9, // your case first column
+                            "className": "text-center"
+                        }
+                    ]
           
       });
   });
