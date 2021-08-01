@@ -5,11 +5,15 @@
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <meta charset="UTF-8">
-  <title>READ - VIEW</title>
+  <title>Konsultasi | View</title>
 </head>
 <body>
-    <h2> Hasil </h2> <br>
-        <div class="table cols-md-12">
+    <br>
+    <div class="container border">
+        <hr><h1 class="text-center">Data Konsultasi</h1><hr>
+        <a class="btn btn-success col-md-2 offset-md-5" href="/konsultasi/write" role="button">Tambah Data</a>
+        <hr>
+        <div class="table">
             <table id="tabel" class="display" style="width: 100%;">
               <thead>
                 <tr>
@@ -19,7 +23,6 @@
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th> 
-                    <th>Order</th>
                     <th>Sender</th>
                     <th>Detail</th>
                     <th>Status</th>
@@ -29,7 +32,7 @@
                 <tbody></tbody>
             </table>
         </div>
-
+    </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -48,12 +51,11 @@
               "columns":
                   [
                       { "data": "id_konsultasi" },
-                      { "data": "pasien" },
-                      { "data": "dokter" },
+                      { "data": "id_pasien" },
+                      { "data": "id_dokter" },
                       { "data": "tanggal" },
                       { "data": "jam_mulai" },
                       { "data": "jam_selesai" },
-                      { "data": "urutan" },
                       { "data": "pengirim" },
                       { "data": "detail" },
                       { "data": "status" },
@@ -65,8 +67,13 @@
                                     '<a href=/konsultasi/delete/' + row.id_konsultasi + '><button type="button" class="btn btn-danger">' + 'Hapus' + '</button></a>'; 
                         }
                       }
-                  ]
-          
+                  ],
+                    'columnDefs': [
+                        {
+                            "targets": 9, // your case first column
+                            "className": "text-center"
+                        }
+                    ]
       });
   });
 </script>
