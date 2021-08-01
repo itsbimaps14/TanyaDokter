@@ -2,6 +2,8 @@ const collection_admin = "Admin";
 const dir = "../view/admin"
 const db = require("../model/connection.js")
 
+//Admin MODUL
+
 exports.indexAdmin = async (req,res) => {
     res.redirect('/admin/read')
 }
@@ -71,3 +73,31 @@ exports.deleteData = async (req,res) => {
     })
     .catch(error => console.error(error))
 }
+
+exports.loginAdmin = async (req,res) => {
+    res.render(dir + '/login.ejs')
+}
+
+exports.loginCreate = async (req,res) => {
+    db.getDB().collection(collection_admin).findOne({username : req.body.username, password : req.body.password} ,function(err, user) { 
+        if (user && user.password === req.body.password){
+            res.redirect('/admin/write');
+        }
+        else{
+            res.redirect('/admin/login');
+        }  
+    })
+}
+
+// app.post('/admin/login_create', (req, res) => {
+ 
+//     db.getDB().collection(collection_admin).findOne({username : req.body.username} ,function(err, user) { 
+//         if (user && user.password === req.body.password){
+//             res.redirect('/admin/write');
+//         }
+//         else{
+//             res.redirect('/admin/login');
+//         }
+        
+//     })
+// })
