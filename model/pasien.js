@@ -140,20 +140,24 @@ exports.sendRequestKonsultasi = async (req,res) => {
     const colDokter = "Konsultasi";
     var dokter = req.params.dokter
     
-    db.getDB().collection(colDokter).insertOne(
-        {
-            id_konsultasi   : "Nunggu Nabil",
-            id_pasien       : "Session",
-            id_dokter       : dokter,
-            tanggal         : "",
-            jam_mulai       : "",
-            jam_selesai     : "",
-            diskusi         : [],
-            status          : "Requested"
-        }
-    )
-    .then(results => {
-        res.redirect('/pasien/request');
+    db.getDB().collection(colDokter).countDocuments()
+    .then(results_cd => {
+        db.getDB().collection(colDokter).insertOne(
+            {
+                id_konsultasi   : "KSL_" + results_cd,
+                id_pasien       : "Session",
+                id_dokter       : dokter,
+                tanggal         : "",
+                jam_mulai       : "",
+                jam_selesai     : "",
+                diskusi         : [],
+                status          : "Requested"
+            }
+        )
+        .then(results => {
+            res.redirect('/pasien/request');
+        })
+        .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 
