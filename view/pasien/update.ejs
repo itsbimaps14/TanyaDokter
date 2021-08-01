@@ -13,11 +13,15 @@
     <hr><h1 class="text-center">Update Pasien</h1><hr>
     <form action="/pasien/update" method="POST">
       <div class="form-group col-md-6 offset-md-3">
+        <label>ID Pasien</label>
+        <input type="text" class="form-control" name="id_pasien" value="<%= hasil.id_pasien %>" readonly required>
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
         <label>Username</label>
         <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Pasien Name</label>
+        <label>Nama</label>
         <input type="text" class="form-control" name="name" value="<%= hasil.name %>" readonly required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
@@ -25,7 +29,7 @@
         <input type="password" class="form-control" name="password" value="<%= hasil.password %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Telephone</label>
+        <label>Telepon</label>
         <input type="number" class="form-control" name="telepon" value="<%= hasil.telepon %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
@@ -34,23 +38,23 @@
       </div>
       <hr><h3 class="text-center">Address</h3><hr>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Province</label>
+        <label>Provinsi</label>
         <input type="text" class="form-control" name="provinci" value="<%= hasil.provinci %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>City</label>
+        <label>Kota</label>
         <input type="text" class="form-control" name="kota" value="<%= hasil.kota %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>District</label>
+        <label>Kecamatan</label>
         <input type="text" class="form-control" name="kecamatan" value="<%= hasil.kecamatan %>" required>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Detail</label>
-        <input type="text" class="form-control" name="detail" value="<%= hasil.detail %>" required>
+        <label>Detail Tambahan</label>
+        <textarea type="text" class="form-control" name="detail" value="<%= hasil.detail %>" required></textarea>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Postal Code</label>
+        <label>Kodepos</label>
         <input type="number" class="form-control" name="kodepos" value="<%= hasil.kodepos %>" required>
       </div>
       <button type="submit" class="btn btn-warning col-md-2 offset-md-5">Ubah Data</button>

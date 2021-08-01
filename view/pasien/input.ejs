@@ -13,6 +13,10 @@
     <hr><h1 class="text-center">Data Pasien</h1><hr>
     <form action="/pasien/form_create" method="POST">
       <div class="form-group col-md-6 offset-md-3">
+        <label>ID Pasien</label>
+        <input type="text" class="form-control" name="id_pasien">
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
         <label>Username</label>
         <input type="text" class="form-control" name="username">
       </div>
@@ -21,11 +25,11 @@
         <input type="password" class="form-control" name="password">
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Name</label>
+        <label>Nama</label>
         <input type="text" class="form-control" name="name">
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Telephone</label>
+        <label>Telepon</label>
         <input type="number" class="form-control" name="telepon">
       </div>
       <div class="form-group col-md-6 offset-md-3">
@@ -34,23 +38,23 @@
       </div>
       <hr><h3 class="text-center">Address</h3><hr>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Province</label>
+        <label>Provinsi</label>
         <input type="text" class="form-control" name="provinci">
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>City</label>
+        <label>Kota</label>
         <input type="text" class="form-control" name="kota">
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>District</label>
+        <label>Kecamatan</label>
         <input type="text" class="form-control" name="kecamatan">
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Detail</label>
-        <input type="text" class="form-control" name="detail">
+        <label>Detail Tambahan</label>
+        <textarea type="text" class="form-control" name="detail"></textarea>
       </div>
       <div class="form-group col-md-6 offset-md-3">
-        <label>Postal Code</label>
+        <label>Kodepos</label>
         <input type="number" class="form-control" name="kodepos">
       </div>
 
