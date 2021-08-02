@@ -156,7 +156,14 @@ exports.loginAuth = async (req, res) => {
 }
 
 exports.acceptKonsultasi = async (req,res) => {
-    res.render(dir + '/accept.ejs')
+    session = req.session;
+    if (session.roles != "Dokter"){
+        req.session.destroy();
+        res.redirect('/dokter/login')
+    }
+    else{
+        res.render(dir + '/accept.ejs')
+    }
 }
 
 exports.readAcceptKonsultasi = async (req,res) => {
