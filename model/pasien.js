@@ -147,7 +147,14 @@ exports.requestKonsultasi = async (req,res) => {
         res.redirect('/pasien/login')
     }
     else{
-        res.render(dir + '/request.ejs')
+        const col = "Pasien"
+        
+        db.getDB().collection(col).findOne({username : session.username})
+        .then(results => {
+            console.log(results)
+            res.render(dir + '/request.ejs', { hasil : results })
+        })
+        .catch(error => console.error(error)) 
     }
 }
 
@@ -165,6 +172,7 @@ exports.readRequestKonsultasi = async (req,res) => {
 }
 
 exports.sendRequestKonsultasi = async (req,res) => {
+    session = req.session;
     const colDokter = "Konsultasi";
     var dokter = req.params.dokter
     
@@ -173,7 +181,7 @@ exports.sendRequestKonsultasi = async (req,res) => {
         db.getDB().collection(colDokter).insertOne(
             {
                 id_konsultasi   : "KSL_" + results_cd,
-                id_pasien       : "Session",
+                id_pasien       : session.username,
                 id_dokter       : dokter,
                 tanggal         : "",
                 jam_mulai       : "",
@@ -183,7 +191,18 @@ exports.sendRequestKonsultasi = async (req,res) => {
             }
         )
         .then(results => {
-            res.redirect('/pasien/request');
+            db.getDB().collection(collection_pasien).updateOne(
+                { username : session.username },
+                {
+                    $set : {
+                            status : "Belum Bayar"
+                        }
+                }
+            )
+            .then(results => {
+                res.redirect('/pasien/request');
+            })
+            .catch(error => console.error(error))
         })
         .catch(error => console.error(error))
     })
@@ -340,6 +359,10 @@ exports.sendPaymentKonsultasi = async (req,res) => {
     var konsultasi = req.body.konsultasi
     var pasien = req.body.pasien
 
+    var hargaDokter;
+    var saldoPasien;
+    var saldoDokter;
+
     db.getDB().collection(col).updateOne(
         { id_konsultasi : konsultasi },
         {
@@ -349,17 +372,72 @@ exports.sendPaymentKonsultasi = async (req,res) => {
             }
         }
     )
-    .then(results => {
-        db.getDB().collection("Pasien").updateOne(
-            { id_pasien : pasien },
-            {
-                $set : { 
-                    status : "OK"
-                }
-            }
+    .then(konsul => {
+        db.getDB().collection("Pasien").findOne(
+            { id_pasien : pasien }
         )
-        .then(results => {
-            res.redirect('/pasien/payment');
+        .then(dataPasien => {
+            saldoPasien = parseInt(dataPasien.saldo);
+            db.getDB().collection("Dokter").findOne(
+                { id_dokter : konsul.id_dokter }
+            )
+            .then(dataDokter => {
+                hargaDokter = parseInt(dataDokter.harga);
+                saldoDokter = parseInt(dataDokter.saldo);
+                db.getDB().collection("Pasien").updateOne(
+                    { id_pasien : pasien },
+                    {
+                        $set : { 
+                            status : "OK",
+                            saldo : saldoPasien - hargaDokter
+                        }
+                    }
+                )
+                .then(bayarPasien => {
+                    db.getDB().collection("Dokter").updateOne(
+                        { id_dokter : konsul.id_dokter },
+                        {
+                            $set : { 
+                                saldo : saldoDokter + hargaDokter
+                            }
+                        }
+                    )
+                    .then(bayarDokter => {
+                        db.getDB().collection("Transaksi").countDocuments()
+                        .then(results_cd => {
+                            // Insert Transaksi Pasien
+                            db.getDB().collection(Transaksi).insertOne(
+                                {
+                                    id_transaksi : "TRX_" + results_cd,
+                                    id_pengguna : dataPasien.id_pasien,
+                                    nominal : hargaDokter,
+                                    jenis : "Pembayaran"
+                                }
+                            )
+                            .then(trxPasien => {
+                                // Insert Transaksi Dokter
+                                db.getDB().collection(Transaksi).insertOne(
+                                    {
+                                        id_transaksi : "TRX_" + parseInt(results_cd+1),
+                                        id_pengguna : dataDokter.id_dokter,
+                                        nominal : hargaDokter,
+                                        jenis : "Dibayar"
+                                    }
+                                )
+                                .then(trxDosen => {
+                                    res.redirect('/pasien/payment');
+                                })
+                                .catch(error => console.error(error))
+                            })
+                            .catch(error => console.error(error))
+                        })
+                        .catch(error => console.error(error))
+                                })
+                    .catch(error => console.error(error))
+                })
+                .catch(error => console.error(error))
+            })
+            .catch(error => console.error(error))
         })
         .catch(error => console.error(error))
     })
