@@ -356,8 +356,8 @@ exports.readPaymentKonsultasi = async (req,res) => {
 
 exports.sendPaymentKonsultasi = async (req,res) => {
     const col = "Konsultasi";
-    var konsultasi = req.body.konsultasi
-    var pasien = req.body.pasien
+    var konsultasi = req.body.konsultasi;
+    var pasien = req.body.pasien;
 
     var hargaDokter;
     var saldoPasien;
