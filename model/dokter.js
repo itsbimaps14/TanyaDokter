@@ -240,6 +240,56 @@ exports.sendAcceptKonsultasi = async (req,res) => {
 
 }
 
+exports.konsulKonsultasi = async (req,res) => {
+    session = req.session;
+    if (session.roles != "Dokter"){
+        req.session.destroy();
+        res.redirect('/dokter/login')
+    }
+    else{
+        res.render(dir + '/konsul.ejs')
+    }
+}
+
+exports.readKonsulKonsultasi = async (req,res) => {
+    const colKon = "Konsultasi";
+    const colDok = "Pasien";
+
+    db.getDB().collection(colKon).aggregate([
+        {
+            $lookup:
+              {
+                from: colDok,
+                let: { 
+                    status : "$status",
+                    id : "$id_pasien"
+                },
+                pipeline: [ {
+                    $match: {
+                        $expr: {
+                            $and: [
+                                { $eq: [ "$$id", "$id_pasien" ] },
+                                { $eq: [ "$$status", "Accepted" ] }
+                            ]
+                        }
+                    }
+                },
+                { $project: { name: 1} }
+                ],
+                as: "data_pasien"
+              }
+         },
+         // Filter
+         {
+             $match: { "status" : "Accepted" }
+         }
+    ])
+    .toArray()
+    .then(results => {
+        res.json(results)
+    })
+    .catch(error => console.error(error)) 
+}
 
 function checkTime(i) {
     return (i < 10) ? "0" + i : i;
@@ -290,6 +340,17 @@ exports.updateStatus = async (req,res) => {
 exports.logOut = async (req,res) => {
     req.session.destroy();
     res.redirect('/dokter/login')
+}
+
+
+exports.chat = async (req,res) => {
+    var konsul = req.params.konsultasi
+    db.getDB().collection("Konsultasi").findOne({id_konsultasi : konsul})
+    .then(results => {
+        console.log(results)
+        res.render(dir + '/chat.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
 }
 
 // END OF DOKTER MODULE
