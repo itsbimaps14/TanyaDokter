@@ -105,7 +105,7 @@ exports.deposit = async (req, res) => {
     ).toArray()
     .then(results => {
         //console.log(results)
-        res.render(dir + '/top_up.ejs', { hasil : results1 })
+        res.render(dir + '/top_up.ejs', { hasil : results })
     })
     .catch(error => console.error(error))
 }
