@@ -362,8 +362,9 @@ exports.sendPaymentKonsultasi = async (req,res) => {
     var hargaDokter;
     var saldoPasien;
     var saldoDokter;
+    var idDokter;
 
-    db.getDB().collection(col).updateOne(
+    db.getDB().collection(col).findOneAndUpdate(
         { id_konsultasi : konsultasi },
         {
             $set : {
@@ -373,29 +374,32 @@ exports.sendPaymentKonsultasi = async (req,res) => {
         }
     )
     .then(konsul => {
+        idDokter = konsul.value.id_dokter
         db.getDB().collection("Pasien").findOne(
             { id_pasien : pasien }
         )
         .then(dataPasien => {
             saldoPasien = parseInt(dataPasien.saldo);
             db.getDB().collection("Dokter").findOne(
-                { id_dokter : konsul.id_dokter }
+                { id_dokter : idDokter }
             )
             .then(dataDokter => {
                 hargaDokter = parseInt(dataDokter.harga);
                 saldoDokter = parseInt(dataDokter.saldo);
+                console.log(hargaDokter)
+                console.log(saldoDokter)
                 db.getDB().collection("Pasien").updateOne(
                     { id_pasien : pasien },
                     {
                         $set : { 
                             status : "OK",
-                            saldo : saldoPasien - hargaDokter
+                            saldo : parseInt(saldoPasien - hargaDokter)
                         }
                     }
                 )
                 .then(bayarPasien => {
                     db.getDB().collection("Dokter").updateOne(
-                        { id_dokter : konsul.id_dokter },
+                        { id_dokter : idDokter },
                         {
                             $set : { 
                                 saldo : saldoDokter + hargaDokter
@@ -406,7 +410,7 @@ exports.sendPaymentKonsultasi = async (req,res) => {
                         db.getDB().collection("Transaksi").countDocuments()
                         .then(results_cd => {
                             // Insert Transaksi Pasien
-                            db.getDB().collection(Transaksi).insertOne(
+                            db.getDB().collection("Transaksi").insertOne(
                                 {
                                     id_transaksi : "TRX_" + results_cd,
                                     id_pengguna : dataPasien.id_pasien,
@@ -416,7 +420,7 @@ exports.sendPaymentKonsultasi = async (req,res) => {
                             )
                             .then(trxPasien => {
                                 // Insert Transaksi Dokter
-                                db.getDB().collection(Transaksi).insertOne(
+                                db.getDB().collection("Transaksi").insertOne(
                                     {
                                         id_transaksi : "TRX_" + parseInt(results_cd+1),
                                         id_pengguna : dataDokter.id_dokter,
