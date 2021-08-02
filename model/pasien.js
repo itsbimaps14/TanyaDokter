@@ -460,31 +460,40 @@ exports.cekNilaiDokter = async (req,res) => {
 
     db.getDB().collection("Konsultasi").countDocuments({id_dokter : dokter})
     .then(total => {
-        db.getDB().collection("Konsultasi").aggregate( 
-            [   
-                //Grouping + Sum
-                {
-                    $group : { 
-                        _id : "$id_dokter", 
-                        totalNilai : { $sum : "$nilai" } 
-                    }
-                },
-                // Filter
-                {
-                    $match: { "_id" : dokter }
-                }
-            ]
-        ).toArray()
-        .then(totalNilai => {
-            //console.log(total)
-            //console.log(totalNilai[0].totalNilai)
+        if (total <= 0){
             res.render(dir + '/cek_nilai.ejs', { 
-                hasil : totalNilai[0].totalNilai/total, 
-                totalKonsul : total,
-                totalNilai : totalNilai[0].totalNilai
+                hasil : 0, 
+                totalKonsul : 0,
+                totalNilai : 0
             })
-        })
-        .catch(error => console.error(error))
+        }
+        else{
+            db.getDB().collection("Konsultasi").aggregate( 
+                [   
+                    //Grouping + Sum
+                    {
+                        $group : { 
+                            _id : "$id_dokter", 
+                            totalNilai : { $sum : "$nilai" } 
+                        }
+                    },
+                    // Filter
+                    {
+                        $match: { "_id" : dokter }
+                    }
+                ]
+            ).toArray()
+            .then(totalNilai => {
+                //console.log(total)
+                //console.log(totalNilai[0].totalNilai)
+                res.render(dir + '/cek_nilai.ejs', { 
+                    hasil : totalNilai[0].totalNilai/total, 
+                    totalKonsul : total,
+                    totalNilai : totalNilai[0].totalNilai
+                })
+            })
+            .catch(error => console.error(error))
+        }
     })
     .catch(error => console.error(error))
 }
