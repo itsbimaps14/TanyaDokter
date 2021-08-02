@@ -130,15 +130,25 @@ exports.deleteDataDokter = async (req,res) => {
 }
 
 exports.loginDokter = async (req,res) => {
-    res.render(dir + '/login')
+    session = req.session
+    if(!session.username && !session.roles){
+        res.render(dir + '/login.ejs')
+    }
+    else{
+        res.redirect('/dokter/menu');
+    }
 }
 
 exports.loginAuth = async (req, res) => {
     db.getDB().collection(collectionVar).findOne({username : req.body.username, password : req.body.password} ,function(err, user) { 
         if (user){
-            res.redirect('/dokter/dashboard');
+            session = req.session
+            session.username = req.body.username;
+            session.roles = "Dokter";
+            res.redirect('/dokter/menu');
         }
         else{
+            req.session.destroy();
             res.redirect('/dokter/login');
         }
         
@@ -223,7 +233,26 @@ exports.sendAcceptKonsultasi = async (req,res) => {
 
 }
 
+
 function checkTime(i) {
     return (i < 10) ? "0" + i : i;
 }
-// END OF TRANSAKSI MODULE
+
+
+exports.dokterMenu = async (req,res) => {
+    session = req.session;
+    if (session.roles != "Dokter"){
+        req.session.destroy();
+        res.redirect('/dokter/login')
+    }
+    else{
+        res.render(dir + '/menu.ejs')
+    }
+}
+
+exports.logOut = async (req,res) => {
+    req.session.destroy();
+    res.redirect('/dokter/login')
+}
+
+// END OF DOKTER MODULE
