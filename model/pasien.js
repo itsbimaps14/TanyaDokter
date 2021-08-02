@@ -389,7 +389,7 @@ exports.sendPaymentKonsultasi = async (req,res) => {
                 console.log(hargaDokter)
                 console.log(saldoDokter)
                 db.getDB().collection("Pasien").updateOne(
-                    { id_pasien : pasien },
+                    { username : pasien },
                     {
                         $set : { 
                             status : "OK",
