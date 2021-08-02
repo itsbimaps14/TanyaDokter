@@ -277,16 +277,12 @@ exports.updateStatus = async (req,res) => {
         { username : req.body.username },
         {
             $set : {
-                name : req.body.name,
-                email : req.body.email,
-                spesialis : req.body.spesialis,
-                saldo : req.body.saldo,
                 status : req.body.status
             }
         }
     )
     .then(results => {
-        res.render(dir + '/menu.ejs')
+        res.redirect('/dokter/menu')
     })
     .catch(error => console.error(error))
 }
