@@ -423,8 +423,17 @@ exports.pasienMenu = async (req,res) => {
 }
 
 exports.statusAkun = async (req,res) => {
-    req.session.destroy();
-    res.redirect('/pasien/login')
+    session = req.session;
+    var uName = session.username
+
+    const col = "Pasien"
+    console.log(uName)
+    db.getDB().collection(col).findOne({username : uName})
+    .then(results => {
+        console.log(results)
+        res.render(dir + '/cek_status.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
 }
 
 exports.logOut = async (req,res) => {

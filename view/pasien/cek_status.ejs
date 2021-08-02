@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Pasien | Data</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Status Pasien</h1><hr>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>ID Pasien</label>
+        <input type="text" class="form-control" name="id_pasien" value="<%= hasil.id_pasien %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" value="<%= hasil.name %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Email</label>
+        <input type="text" class="form-control" name="email" value="<%= hasil.email %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Saldo</label>
+        <input type="text" class="form-control" name="saldo" value="<%= hasil.saldo %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Status</label>
+        <input type="text" class="form-control" name="status" value="<%= hasil.status %>" readonly> 
+      </div>
+      <hr>
+  </div>
+</body>
+</html>
