@@ -1,9 +1,17 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 
-const db = require("./model/connection.js")
+const db = require("./model/connection.js");
 
 const app = express();
+const session = require("express-session");
+
+app.use(session({
+    secret: "KMZWA8AWAA", //  '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+    resave: false,
+    saveUninitialized: true
+}));
+
 
 // Routers
 const transaksiRoutes    = require('./controller/transaksi');

@@ -2,11 +2,15 @@ const collection_pasien = "Pasien";
 const dir = "../view/pasien"
 const db = require("../model/connection.js")
 
+var session = null;
+
 //Pasien MODUL
 
 exports.indexPasien = async (req,res) => {
-    res.redirect('/pasien/read')
+    res.redirect('/pasien/login')
 }
+
+// BATAS PUNYA ADMIN
 
 exports.writePasien = async (req,res) => {
     res.render(dir + '/input.ejs')
@@ -108,14 +112,25 @@ exports.deleteData = async (req,res) => {
     .catch(error => console.error(error))
 }
 
+// BATAS PUNYA ADMIN
+
 exports.loginPasien = async (req,res) => {
-    res.render(dir + '/login.ejs')
+    if(!session){
+        res.render(dir + '/login.ejs')
+    }
+    else{
+        res.redirect('/pasien/request');
+    }
 }
 
 exports.loginCreate = async (req,res) => {
+    
     db.getDB().collection(collection_pasien).findOne({username : req.body.username, password : req.body.password} ,function(err, user) { 
         if (user){
-            res.redirect('/pasien/write');
+            session = req.session
+            session.username = req.body.username;
+            session.roles = "Pasien";
+            res.redirect('/pasien/request');
         }
         else{
             res.redirect('/pasien/login');
@@ -124,7 +139,13 @@ exports.loginCreate = async (req,res) => {
 }
 
 exports.requestKonsultasi = async (req,res) => {
-    res.render(dir + '/request.ejs')
+    session = req.session;
+    if (session.roles != "Pasien"){
+        res.redirect('/pasien')
+    }
+    else{
+        res.render(dir + '/request.ejs')
+    }
 }
 
 exports.readRequestKonsultasi = async (req,res) => {
@@ -168,7 +189,13 @@ exports.sendRequestKonsultasi = async (req,res) => {
 }
 
 exports.konsulKonsultasi = async (req,res) => {
-    res.render(dir + '/konsul.ejs')
+    session = req.session;
+    if (session.roles != "Pasien"){
+        res.redirect('/pasien/')
+    }
+    else{
+        res.render(dir + '/konsul.ejs')
+    }
 }
 
 exports.readKonsulKonsultasi = async (req,res) => {
@@ -254,7 +281,13 @@ exports.sendKonsulKonsultasi = async (req,res) => {
 }
 
 exports.paymentKonsultasi = async (req,res) => {
-    res.render(dir + '/bayar.ejs')
+    session = req.session;
+    if (session.roles != "Pasien"){
+        res.redirect('/pasien/')
+    }
+    else{
+        res.render(dir + '/bayar.ejs')
+    }
 }
 
 exports.readPaymentKonsultasi = async (req,res) => {
