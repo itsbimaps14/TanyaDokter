@@ -326,21 +326,41 @@ exports.nilaiPaymentKonsultasi = async (req,res) => {
 
     res.render(dir + '/nilai.ejs', { hasil1 : konsultasi, hasil2 : pasien })
 }
-/*
+
 exports.cekNilaiDokter = async (req,res) => {
     var dokter = req.params.dokter
 
     db.getDB().collection("Konsultasi").countDocuments({id_dokter : dokter})
-    .then(results => {
-        db.getDB().collection("Konsultasi").countDocuments({id_dokter : dokter})
-        .then(results => {
-            
+    .then(total => {
+        db.getDB().collection("Konsultasi").aggregate( 
+            [   
+                //Grouping + Sum
+                {
+                    $group : { 
+                        _id : "$id_dokter", 
+                        totalNilai : { $sum : "$nilai" } 
+                    }
+                },
+                // Filter
+                {
+                    $match: { "_id" : "polang" }
+                }
+            ]
+        ).toArray()
+        .then(totalNilai => {
+            //console.log(total)
+            //console.log(totalNilai[0].totalNilai)
+            res.render(dir + '/cek_nilai.ejs', { 
+                hasil : totalNilai[0].totalNilai/total, 
+                totalKonsul : total,
+                totalNilai : totalNilai[0].totalNilai
+            })
         })
         .catch(error => console.error(error))
     })
     .catch(error => console.error(error))
 }
-*/
+
 function checkTime(i) {
     return (i < 10) ? "0" + i : i;
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Pasien | Konsultasi</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Rata - Rata Nilai Dokter</h1><hr>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Penilaian (1-5)</label>
+        <input type="number" class="form-control" name="nilai" value="<%= hasil %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Total Nilai</label>
+        <input type="number" class="form-control" name="totalNilai" value="<%= totalNilai %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Total Konsul</label>
+        <input type="number" class="form-control" name="totalKonsul" value="<%= totalKonsul %>" readonly> 
+      </div>
+      <hr>
+  </div>
+</body>
+</html>

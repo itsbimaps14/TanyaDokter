@@ -23,6 +23,6 @@ router.get('/payment/proses', pasienAPI.readPaymentKonsultasi)
 router.post('/payment/proses/bayar', pasienAPI.sendPaymentKonsultasi)
 router.get('/payment/proses/nilai/:konsultasi/:pasien', pasienAPI.nilaiPaymentKonsultasi)
 
-//router.get('/cek/nilai/:dokter', pasienAPI.cekNilaiDokter)
+router.get('/cek/nilai/:dokter', pasienAPI.cekNilaiDokter)
 
 module.exports = router
