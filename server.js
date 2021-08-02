@@ -7,8 +7,8 @@ const app = express();
 const session = require("express-session");
 
 app.use(session({
-    secret: "KMZWA8AWAA", //  '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-    resave: false,
+    secret: "KMZWA8AWAA",
+    resave: true,
     saveUninitialized: true
 }));
 

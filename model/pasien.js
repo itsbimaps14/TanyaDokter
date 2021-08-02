@@ -115,11 +115,12 @@ exports.deleteData = async (req,res) => {
 // BATAS PUNYA ADMIN
 
 exports.loginPasien = async (req,res) => {
-    if(!session){
+    session = req.session
+    if(!session.username && !session.roles){
         res.render(dir + '/login.ejs')
     }
     else{
-        res.redirect('/pasien/request');
+        res.redirect('/pasien/menu');
     }
 }
 
@@ -130,9 +131,10 @@ exports.loginCreate = async (req,res) => {
             session = req.session
             session.username = req.body.username;
             session.roles = "Pasien";
-            res.redirect('/pasien/request');
+            res.redirect('/pasien/menu');
         }
         else{
+            req.session.destroy();
             res.redirect('/pasien/login');
         }  
     })
@@ -141,7 +143,8 @@ exports.loginCreate = async (req,res) => {
 exports.requestKonsultasi = async (req,res) => {
     session = req.session;
     if (session.roles != "Pasien"){
-        res.redirect('/pasien')
+        req.session.destroy();
+        res.redirect('/pasien/login')
     }
     else{
         res.render(dir + '/request.ejs')
@@ -191,7 +194,8 @@ exports.sendRequestKonsultasi = async (req,res) => {
 exports.konsulKonsultasi = async (req,res) => {
     session = req.session;
     if (session.roles != "Pasien"){
-        res.redirect('/pasien/')
+        req.session.destroy();
+        res.redirect('/pasien/login')
     }
     else{
         res.render(dir + '/konsul.ejs')
@@ -283,7 +287,8 @@ exports.sendKonsulKonsultasi = async (req,res) => {
 exports.paymentKonsultasi = async (req,res) => {
     session = req.session;
     if (session.roles != "Pasien"){
-        res.redirect('/pasien/')
+        req.session.destroy();
+        res.redirect('/pasien/login')
     }
     else{
         res.render(dir + '/bayar.ejs')
@@ -404,4 +409,25 @@ exports.cekNilaiDokter = async (req,res) => {
 
 function checkTime(i) {
     return (i < 10) ? "0" + i : i;
+}
+
+exports.pasienMenu = async (req,res) => {
+    session = req.session;
+    if (session.roles != "Pasien"){
+        req.session.destroy();
+        res.redirect('/pasien/login')
+    }
+    else{
+        res.render(dir + '/menu.ejs')
+    }
+}
+
+exports.statusAkun = async (req,res) => {
+    req.session.destroy();
+    res.redirect('/pasien/login')
+}
+
+exports.logOut = async (req,res) => {
+    req.session.destroy();
+    res.redirect('/pasien/login')
 }
