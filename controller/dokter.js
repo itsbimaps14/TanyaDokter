@@ -16,4 +16,7 @@ router.get('/accept', dokterAPI.acceptKonsultasi)
 router.get('/accept/proses', dokterAPI.readAcceptKonsultasi)
 router.get('/accept/proses/:konsultasi', dokterAPI.sendAcceptKonsultasi)
 
+router.get('/menu', dokterAPI.dokterMenu)
+router.get('/logout', dokterAPI.logOut)
+
 module.exports = router
