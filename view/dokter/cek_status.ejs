@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Dokter | Data</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Status Dokter</h1><hr>
+    <form action="/dokter/updateStatus" method="POST">
+      <div class="form-group col-md-6 offset-md-3">
+        <label>ID Dokter</label>
+        <input type="text" class="form-control" name="id_dokter" value="<%= hasil.id_dokter %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" value="<%= hasil.username %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" value="<%= hasil.name %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Email</label>
+        <input type="text" class="form-control" name="email" value="<%= hasil.email %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Spesialis</label>
+        <input type="text" class="form-control" name="spesialis" value="<%= hasil.spesialis %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Saldo</label>
+        <input type="text" class="form-control" name="saldo" value="<%= hasil.saldo %>" readonly> 
+      </div>
+      <div class="form-group col-md-6 offset-md-3">
+        <label>Status</label>
+        <select class="form-control" id="status" name="status" required>
+          <option value=""></option>
+          <option value="Aktif">Aktif</option>
+          <option value="TidakAktif">Tidak Aktif</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary col-md-2 offset-md-5">Ubah Status</button>
+      <hr>
+  </div>
+</body>
+</html>
+
+<script>
+    if("<%= hasil.status %>" == "Aktif"){
+      document.getElementById("status").selectedIndex = 1;
+    }
+    else{
+      document.getElementById("status").selectedIndex = 2;
+    }
+  </script>

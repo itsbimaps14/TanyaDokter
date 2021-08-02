@@ -257,6 +257,40 @@ exports.dokterMenu = async (req,res) => {
     }
 }
 
+exports.statusAkun = async (req,res) => {
+    session = req.session;
+    var uName = session.username
+
+    const col = "Dokter"
+    console.log(uName)
+    db.getDB().collection(col).findOne({username : uName})
+    .then(results => {
+        console.log(results)
+        res.render(dir + '/cek_status.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+}
+
+exports.updateStatus = async (req,res) => {
+    const col = "Dokter"
+    db.getDB().collection(col).updateOne(
+        { username : req.body.username },
+        {
+            $set : {
+                name : req.body.name,
+                email : req.body.email,
+                spesialis : req.body.spesialis,
+                saldo : req.body.saldo,
+                status : req.body.status
+            }
+        }
+    )
+    .then(results => {
+        res.render(dir + '/menu.ejs')
+    })
+    .catch(error => console.error(error))
+}
+
 exports.logOut = async (req,res) => {
     req.session.destroy();
     res.redirect('/dokter/login')
