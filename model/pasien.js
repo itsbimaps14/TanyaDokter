@@ -198,6 +198,10 @@ exports.readKonsulKonsultasi = async (req,res) => {
                 ],
                 as: "data_dokter"
               }
+         },
+         // Filter
+         {
+             $match: { "status" : "Accepted" }
          }
     ])
     .toArray()
@@ -280,6 +284,10 @@ exports.readPaymentKonsultasi = async (req,res) => {
                 ],
                 as: "data_dokter"
               }
+         },
+         // Filter
+         {
+             $match: { "status" : "Payment" }
          }
     ])
     .toArray()
@@ -343,7 +351,7 @@ exports.cekNilaiDokter = async (req,res) => {
                 },
                 // Filter
                 {
-                    $match: { "_id" : "polang" }
+                    $match: { "_id" : dokter }
                 }
             ]
         ).toArray()

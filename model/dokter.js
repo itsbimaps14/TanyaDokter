@@ -178,6 +178,10 @@ exports.readAcceptKonsultasi = async (req,res) => {
                 ],
                 as: "data_pasien"
               }
+         },
+         // Filter
+         {
+             $match: { "status" : "Requested" }
          }
     ])
     .toArray()
