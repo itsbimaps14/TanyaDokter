@@ -376,7 +376,7 @@ exports.sendPaymentKonsultasi = async (req,res) => {
     .then(konsul => {
         idDokter = konsul.value.id_dokter
         db.getDB().collection("Pasien").findOne(
-            { id_pasien : pasien }
+            { username : pasien }
         )
         .then(dataPasien => {
             saldoPasien = parseInt(dataPasien.saldo);
