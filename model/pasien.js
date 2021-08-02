@@ -522,3 +522,13 @@ exports.logOut = async (req,res) => {
     req.session.destroy();
     res.redirect('/pasien/login')
 }
+
+exports.chat = async (req,res) => {
+    var konsul = req.params.konsultasi
+    db.getDB().collection("Konsultasi").findOne({id_konsultasi : konsul})
+    .then(results => {
+        console.log(results)
+        res.render(dir + '/chat.ejs', { hasil : results })
+    })
+    .catch(error => console.error(error))
+}

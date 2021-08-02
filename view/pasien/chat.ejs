@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Pasien | Konsultasi</title>
+  </head>
+<body>
+  <br>
+  <div class="container border">
+    <hr><h1 class="text-center">Chat Konsultasi</h1><hr>
+      <% for(var i = 0; i < hasil.diskusi.length; i++) {
+        if (hasil.diskusi[i][0] == "Dokter") {%>
+        <div class="form-group col-md-5">
+          <p><%= hasil.diskusi[i][0] %></p>
+          <input type="text" class="form-control" value="<%= hasil.diskusi[i][1] %>" readonly> 
+        </div>
+        <%} else {%>
+        <div class="form-group col-md-5 offset-md-7">
+          <p class="text-right"><%= hasil.diskusi[i][0] %></p>
+          <input type="text" class="form-control text-right" value="<%= hasil.diskusi[i][1] %>" readonly> 
+        </div>
+        <% } } %>
+      <hr>
+  </div>
+  <br>
+</body>
+</html>

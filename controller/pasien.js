@@ -28,4 +28,6 @@ router.get('/menu', pasienAPI.pasienMenu)
 router.get('/data', pasienAPI.statusAkun)
 router.get('/logout', pasienAPI.logOut)
 
+router.get('/konsul/chat/:konsultasi', pasienAPI.chat)
+
 module.exports = router
